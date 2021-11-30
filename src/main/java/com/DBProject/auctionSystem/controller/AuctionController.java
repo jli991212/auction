@@ -17,12 +17,8 @@ public class AuctionController {
     public List<String> getAllBids() { // could do @PathVariable
         return auctionService.getAllBids();
     }
-<<<<<<< HEAD
     
-    @GetMapping(path = "/buyer/{buyerID}")
-=======
     @GetMapping(path = "/bids/buyer/{buyerID}")
->>>>>>> eb8562b5c29c9d09c1978aa3c74078917f14b0d5
     public List<Bid> getBuyer(@PathVariable int buyerID) {
         return auctionService.getBidsByBuyerID(buyerID);
     }
