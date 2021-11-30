@@ -2,6 +2,8 @@ package com.DBProject.auctionSystem.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import java.sql.Date;
+import java.time.LocalDateTime;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,6 +16,6 @@ public class Bid {
     private Integer itemID;
     private Integer buyerID;
     private Double bidPrice;
-    private Date bidTime;
+    private LocalDateTime bidTime;
     private Boolean isWinner;
 }

@@ -33,4 +33,9 @@ public class MemberController {
     public Member get(@PathVariable int memberID) {
         return memberService.getMember(memberID);
     }
+
+    @GetMapping(path = "/info")
+    public List<String> getInfo() {// could do @PathVariable
+        return memberService.getMemberInfo();
+    }
 }

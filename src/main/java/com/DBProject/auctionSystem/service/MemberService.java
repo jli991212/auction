@@ -39,4 +39,9 @@ public class MemberService {
 
         return member;
     }
+
+    public List<String> getMemberInfo() {
+        String query1 = "select * from member";
+        return memberDao.getQuery(query1);
+    }
 }
