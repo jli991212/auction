@@ -12,8 +12,10 @@ import java.util.List;
 public class AuctionService {
     @Autowired
     BidDao bidDao;
+    
     @Autowired
     ItemDao itemDao;
+
     // bids
     public List<String> getAllBids() {
         String query1 = "select * from bid";
