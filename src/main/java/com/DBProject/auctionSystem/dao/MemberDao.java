@@ -1,9 +1,9 @@
 package com.DBProject.auctionSystem.dao;
 
+import java.sql.ResultSet;
 import java.util.List;
 
 import com.DBProject.auctionSystem.model.Member;
-import com.DBProject.auctionSystem.model.Seller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -19,13 +19,25 @@ public class MemberDao {
         return jdbc.queryForList(sql, String.class);
     }
 
-    public void addMember(String type) {
-        String sql = String.join("\n",
-            "INSERT INTO member (",
-            "`name`, `email`, `password`, `memberType`",
-            ") VALUES (?, ?, ?, ?)"
-        );
+    public Member getMember(int memberID) {
+        String sql = "SELECT name FROM member WHERE memberID=?";
+        Member member = null;
 
+        try {
+            member = jdbc.queryForObject(sql, (ResultSet rs, int rowNum) -> {
+                Member m = new Member();
+
+                m.setName(rs.getString("name"));
+                
+                return m;
+            }, memberID);
+        } catch(Exception e) {}
+
+        return member;
+    }
+
+    public void addMember(String type) {
+        String sql = "INSERT INTO member (`name`, `email`, `password`, `memberType`) VALUES (?, ?, ?, ?)";
         jdbc.update(sql, "new name", "new@example.com", "123", type);
     }
 }

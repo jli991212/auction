@@ -2,10 +2,12 @@ package com.DBProject.auctionSystem.controller;
 
 import java.util.List;
 
+import com.DBProject.auctionSystem.model.Member;
 import com.DBProject.auctionSystem.service.MemberService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,5 +26,10 @@ public class MemberController {
     @PostMapping(path = "/add")
     public List<String> add() {
         return memberService.addMember();
+    }
+
+    @GetMapping(path = "/{memberID}")
+    public Member get(@PathVariable int memberID) {
+        return memberService.getMember(memberID);
     }
 }

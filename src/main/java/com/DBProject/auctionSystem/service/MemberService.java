@@ -3,6 +3,7 @@ package com.DBProject.auctionSystem.service;
 import java.util.List;
 
 import com.DBProject.auctionSystem.dao.MemberDao;
+import com.DBProject.auctionSystem.model.Member;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,10 @@ public class MemberService {
 
     public List<String> getMembers() {
         return memberDao.getMembers();
+    }
+
+    public Member getMember(int memberID) {
+        return memberDao.getMember(memberID);
     }
 
     public List<String> addMember() {
