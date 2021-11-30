@@ -28,12 +28,17 @@ public class AuctionController {
     }
 
     @PostMapping(path = "/addBid")
-    public Bid add(@RequestBody Bid bid) {
+    public Bid addBid(@RequestBody Bid bid) {
         return auctionService.addBid(bid);
     }
 
     @PostMapping(path = "/setWinner/{itemID}-{buyerID}")
-    public void set(@PathVariable int itemID, @PathVariable int buyerID){
-        auctionService.setWinningBid(itemID, buyerID);
+    public boolean setWinningBid(@PathVariable int itemID, @PathVariable int buyerID){
+        return auctionService.setWinningBid(itemID, buyerID);
+    }
+
+    @DeleteMapping(path = "/deleteBid/{itemID}-{buyerID}")
+    public boolean deleteBid(@PathVariable int itemID, @PathVariable int buyerID) {
+        return auctionService.deleteBid(itemID, buyerID);
     }
 }

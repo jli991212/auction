@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -88,25 +89,37 @@ public class BidDao {
     }
 
     public Bid addBid(Bid bid) {
-        String sql = "INSERT INTO bid (`itemID`, `buyerID`, `bidPrice`, `bidTime`) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO bid (`itemID`, `buyerID`, `bidPrice`, `bidTime`, `isWinner`) VALUES (?, ?, ?, ?, ?)";
+        
+        LocalDate bidTime = bid.getBidTime() != null ? bid.getBidTime().toLocalDate() : LocalDate.now();
+        Boolean isWinner = bid.getIsWinner() != null ? bid.getIsWinner() : false;
 
         int result = jdbc.update(
             sql,
             bid.getItemID(),
             bid.getBuyerID(),
             bid.getBidPrice(),
-            bid.getBidTime()
+            bidTime,
+            isWinner
         );
 
         return result > 0 ? bid : null;
     }
 
     
-    public void deleteBid(Bid bid) {
-        //
+    public boolean deleteBid(int itemID, int buyerID) {
+        String sql = "DELETE FROM bid WHERE itemID = ? AND buyerID = ?";
+
+        int result = jdbc.update(
+            sql,
+            itemID,
+            buyerID
+        );
+
+        return result == 1;
     }
     
-    public void setWinningBid(int itemID, int buyerID) {
+    public boolean setWinningBid(int itemID, int buyerID) {
         String sql = "UPDATE bid SET isWinner = true WHERE itemID = ? AND buyerID = ?";
 
         int result = jdbc.update(
@@ -115,9 +128,7 @@ public class BidDao {
             buyerID
         );
 
-        if(result != 1) {
-            System.out.println("set winner error");
-        }
+        return result == 1;
     }
 
 }
