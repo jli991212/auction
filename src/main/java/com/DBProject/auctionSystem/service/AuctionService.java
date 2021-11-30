@@ -40,7 +40,19 @@ public class AuctionService {
         String query1 = "select * from item";
         return itemDao.getAllItems(query1);
     }
-    public List<Item> getItemsbyItemID(int itemID){
+    public List<Item> getItemsByItemID(int itemID){
         return itemDao.getItemByItemID(itemID);
+    }
+    public List<Item> getItemsBySellerID(int sellerID){
+        return itemDao.getItemsBySellerID(sellerID);
+    }
+    public List<Item> getItemsByCategory(int categoryID){
+        return itemDao.getItemsByCategory(categoryID);
+    }
+    public Item addItem(Item item){
+        return itemDao.addItem(item);
+    }
+    public void updateItem(Item item, int itemID, int sellerID){
+        itemDao.updateItem(item, itemID, sellerID);
     }
 }

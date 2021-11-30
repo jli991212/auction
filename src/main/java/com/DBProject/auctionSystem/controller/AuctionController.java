@@ -45,8 +45,25 @@ public class AuctionController {
     public List<String> getAllItems() { // could do @PathVariable
         return auctionService.getAllItems();
     }
-    @GetMapping(path = "/items/{itemID}")
+    @GetMapping(path = "/items/item/{itemID}")
     public List<Item> getItemsByItemID(@PathVariable int itemID){
-        return auctionService.getItemsbyItemID(itemID);
+        return auctionService.getItemsByItemID(itemID);
     }
+    @GetMapping(path = "/items/seller/{sellerID}")
+    public List<Item> getItemsBySellerID(@PathVariable int sellerID){
+        return auctionService.getItemsBySellerID(sellerID);
+    }
+    @GetMapping(path = "/items/category/{categoryID}")
+    public List<Item> getItemsByCategory(@PathVariable int categoryID){
+        return auctionService.getItemsByCategory(categoryID);
+    }
+    @PostMapping(path = "/items/addItem")
+    public Item addItem(@RequestBody Item item){
+        return auctionService.addItem(item);
+    }
+    @PostMapping(path = "/items/updateItem/{itemID}-{sellerID}")
+    public void updateItem(@RequestBody Item item,@PathVariable int itemID, @PathVariable int sellerID){
+        auctionService.updateItem(item, itemID, sellerID);
+    }
+
 }
