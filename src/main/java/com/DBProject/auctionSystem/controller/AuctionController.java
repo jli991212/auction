@@ -14,27 +14,34 @@ public class AuctionController {
     @Autowired
     AuctionService auctionService;
 
-    @GetMapping(path = "/allBids")
+    // bids
+    @GetMapping(path = "/bids/allBids")
     public List<String> getAllBids() { // could do @PathVariable
         return auctionService.getAllBids();
     }
-    @GetMapping(path = "/buyer/{buyerID}")
+    @GetMapping(path = "/bids/buyer/{buyerID}")
     public List<Bid> getBuyer(@PathVariable int buyerID) {
         return auctionService.getBidsByBuyerID(buyerID);
     }
 
-    @GetMapping(path = "/item/{itemID}")
+    @GetMapping(path = "/bids/item/{itemID}")
     public List<Bid> getItem(@PathVariable int itemID) {
         return auctionService.getBidsByItemID(itemID);
     }
 
-    @PostMapping(path = "/addBid")
+    @PostMapping(path = "/bids/addBid")
     public Bid add(@RequestBody Bid bid) {
         return auctionService.addBid(bid);
     }
 
-    @PostMapping(path = "/setWinner/{itemID}-{buyerID}")
+    @PostMapping(path = "/bids/setWinner/{itemID}-{buyerID}")
     public void set(@PathVariable int itemID, @PathVariable int buyerID){
         auctionService.setWinningBid(itemID, buyerID);
+    }
+
+    // items
+    @GetMapping(path = "/items/allItems")
+    public List<String> getAllItems() { // could do @PathVariable
+        return auctionService.getAllItems();
     }
 }
