@@ -36,8 +36,17 @@ public class MemberDao {
         return member;
     }
 
-    public void addMember(String type) {
+    public Member addMember(Member member) {
         String sql = "INSERT INTO member (`name`, `email`, `password`, `memberType`) VALUES (?, ?, ?, ?)";
-        jdbc.update(sql, "new name", "new@example.com", "123", type);
+
+        int result = jdbc.update(
+            sql,
+            member.getName(),
+            member.getEmail(),
+            member.getPassword(),
+            member.getMemberType()
+        );
+
+        return result > 0 ? member : null;
     }
 }

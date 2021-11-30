@@ -21,12 +21,12 @@ public class MemberService {
         return memberDao.getMember(memberID);
     }
 
-    public List<String> addMember() {
-        String x = "admin";
+    public Member addMember(Member member) {
+        String memberType = member.getMemberType();
 
-        memberDao.addMember(x);
+        member = memberDao.addMember(member);
 
-        switch(x) {
+        switch(memberType) {
             case "admin":
                 break;
             case "buyer":
@@ -37,6 +37,6 @@ public class MemberService {
                 break;
         }
 
-        return memberDao.getMembers();
+        return member;
     }
 }
