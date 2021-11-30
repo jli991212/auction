@@ -1,6 +1,7 @@
 package com.DBProject.auctionSystem.controller;
 
 import com.DBProject.auctionSystem.model.Bid;
+import com.DBProject.auctionSystem.model.Item;
 import com.DBProject.auctionSystem.model.Member;
 import com.DBProject.auctionSystem.service.AuctionService;
 import com.DBProject.auctionSystem.service.MemberService;
@@ -43,5 +44,9 @@ public class AuctionController {
     @GetMapping(path = "/items/allItems")
     public List<String> getAllItems() { // could do @PathVariable
         return auctionService.getAllItems();
+    }
+    @GetMapping(path = "/items/{itemID}")
+    public List<Item> getItemsByItemID(@PathVariable int itemID){
+        return auctionService.getItemsbyItemID(itemID);
     }
 }
