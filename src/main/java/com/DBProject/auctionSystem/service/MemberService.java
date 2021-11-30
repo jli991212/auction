@@ -2,9 +2,15 @@ package com.DBProject.auctionSystem.service;
 
 import java.util.List;
 
+import com.DBProject.auctionSystem.dao.AdminDao;
+import com.DBProject.auctionSystem.dao.BuyerDao;
 import com.DBProject.auctionSystem.dao.MemberDao;
+import com.DBProject.auctionSystem.dao.SellerDao;
+import com.DBProject.auctionSystem.model.Admin;
+import com.DBProject.auctionSystem.model.Buyer;
 import com.DBProject.auctionSystem.model.Member;
 
+import com.DBProject.auctionSystem.model.Seller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +18,12 @@ import org.springframework.stereotype.Service;
 public class MemberService {
     @Autowired
     MemberDao memberDao;
+    @Autowired
+    AdminDao adminDao;
+    @Autowired
+    BuyerDao buyerDao;
+    @Autowired
+    SellerDao sellerDao;
 
     public List<String> getMembers() {
         return memberDao.getMembers();
@@ -51,5 +63,20 @@ public class MemberService {
     public List<String> getMemberInfo() {
         String query1 = "select * from member";
         return memberDao.getQuery(query1);
+    }
+
+    // admin
+    public List<Admin> getAdmins(){
+        return adminDao.getAdmins();
+    }
+
+    // buyer
+    public List<Buyer> getBuyers(){
+        return buyerDao.getBuyers();
+    }
+
+    // seller
+    public List<Seller> getSellers(){
+        return sellerDao.getSellers();
     }
 }

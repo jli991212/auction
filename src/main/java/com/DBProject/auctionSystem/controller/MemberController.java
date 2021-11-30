@@ -2,7 +2,10 @@ package com.DBProject.auctionSystem.controller;
 
 import java.util.List;
 
+import com.DBProject.auctionSystem.model.Admin;
+import com.DBProject.auctionSystem.model.Buyer;
 import com.DBProject.auctionSystem.model.Member;
+import com.DBProject.auctionSystem.model.Seller;
 import com.DBProject.auctionSystem.service.MemberService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,5 +50,23 @@ public class MemberController {
     @GetMapping(path = "/info")
     public List<String> getInfo() {// could do @PathVariable
         return memberService.getMemberInfo();
+    }
+
+    // admin
+    @GetMapping(path = "/admins")
+    public List<Admin> getAdmins(){
+        return memberService.getAdmins();
+    }
+
+    // buyer
+    @GetMapping(path = "/buyers")
+    public List<Buyer> getBuyers(){
+        return memberService.getBuyers();
+    }
+
+    // seller
+    @GetMapping(path = "/sellers")
+    public List<Seller> getSellers(){
+        return memberService.getSellers();
     }
 }
