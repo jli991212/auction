@@ -4,6 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.DBProject.auctionSystem.model.Bid;
 import com.DBProject.auctionSystem.model.Member;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,40 @@ public class MemberDao {
         } catch(Exception e) {}
 
         return member;
+    }
+
+    public List<Member> getMemberByEmail(String email) { // for login
+        String sql = "SELECT * FROM member WHERE email=\"" + email + "\"";
+        List<Member> member = null;
+
+        try {
+            member = jdbc.query(sql, (rs, rowNum) ->
+                    new Member(
+                            rs.getString("email"),
+                            rs.getString("password"),
+                            rs.getString("memberType")
+                    ));
+        } catch(Exception e) {
+            e.printStackTrace();
+            System.out.println("find member by email error");
+        }
+
+        return member;
+    }
+
+    public String verifyMember(String email, String password){
+        List<Member> mems = getMemberByEmail(email);
+        if(mems.size() == 0) {
+            System.out.println("No such member");
+            return "Please register first!";
+        }
+        Member mem = mems.get(0);
+        if(!mem.getPassword().equals(password)){
+            System.out.println("input password: " + password + " DB password: " + mem.getPassword());
+            System.out.println("password not match");
+            return "Login information does not match!";
+        }
+        return mem.getMemberType();
     }
 
     public List<String> getQuery(String query){
