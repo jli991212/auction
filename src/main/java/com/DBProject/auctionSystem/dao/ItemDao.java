@@ -17,7 +17,7 @@ public class ItemDao {
     @Autowired
     JdbcTemplate jdbc;
 
-    public List<String> getAllItems(String query){
+    public List<String> getAllItemsString(String query){
         try {
             DataSource ds = jdbc.getDataSource();
             Connection myConn = DataSourceUtils.getConnection(ds);
@@ -47,7 +47,31 @@ public class ItemDao {
         return null;
     }
 
-    public List<Item> getItemByID(int itemID) {
+    public List<Item> getAllItems(){
+        String sql = "SELECT * FROM item";
+        List<Item> item = null;
+
+        try {
+            item = jdbc.query(sql, (rs, rowNum) ->
+                    new Item(
+                            rs.getInt("itemID"),
+                            rs.getInt("sellerID"),
+                            rs.getString("itemName"),
+                            rs.getString("description"),
+                            rs.getDouble("startingBid"),
+                            rs.getTimestamp("bidStartDate").toLocalDateTime(),
+                            rs.getTimestamp("bidEndDate").toLocalDateTime(),
+                            rs.getInt("categoryID"),
+                            rs.getString("size")
+                    ));
+        } catch(Exception e) {
+            System.out.println("get all items error");
+        }
+
+        return item;
+    }
+
+    public List<Item> getItemByItemID(int itemID) {
         String sql = "SELECT * FROM item WHERE itemID=" + itemID;
         List<Item> item = null;
 
@@ -65,30 +89,104 @@ public class ItemDao {
                             rs.getString("size")
                     ));
         } catch(Exception e) {
-            System.out.println("find by item error");
+            System.out.println("find by itemID error");
         }
 
         return item;
     }
 
-    public void getItemsBySellerID(int sellerID) {
-        //
+    public List<Item> getItemsBySellerID(int sellerID) {
+        String sql = "SELECT * FROM item WHERE sellerID=" + sellerID;
+        List<Item> item = null;
+
+        try {
+            item = jdbc.query(sql, (rs, rowNum) ->
+                    new Item(
+                            rs.getInt("itemID"),
+                            rs.getInt("sellerID"),
+                            rs.getString("itemName"),
+                            rs.getString("description"),
+                            rs.getDouble("startingBid"),
+                            rs.getTimestamp("bidStartDate").toLocalDateTime(),
+                            rs.getTimestamp("bidEndDate").toLocalDateTime(),
+                            rs.getInt("categoryID"),
+                            rs.getString("size")
+                    ));
+        } catch(Exception e) {
+            System.out.println("find by sellerID error");
+        }
+
+        return item;
     }
 
-    public void getItemsByCategory(int categoryName) {
-        //
+    public List<Item> getItemsByCategory(int categoryID) {
+        String sql = "SELECT * FROM item WHERE categoryID=" + categoryID;
+        List<Item> item = null;
+
+        try {
+            item = jdbc.query(sql, (rs, rowNum) ->
+                    new Item(
+                            rs.getInt("itemID"),
+                            rs.getInt("sellerID"),
+                            rs.getString("itemName"),
+                            rs.getString("description"),
+                            rs.getDouble("startingBid"),
+                            rs.getTimestamp("bidStartDate").toLocalDateTime(),
+                            rs.getTimestamp("bidEndDate").toLocalDateTime(),
+                            rs.getInt("categoryID"),
+                            rs.getString("size")
+                    ));
+        } catch(Exception e) {
+            System.out.println("find by sellerID error");
+        }
+
+        return item;
     }
 
     public void getTopItems(int categoryName) {
         //
     }
 
-    public void addItem(Item item) {
-        //
+    public Item addItem(Item item) {
+        String sql = "INSERT INTO item (`itemID`, `sellerID`, `itemName`, `description`, `startingBid`, `bidStartDate`, `bidEndDate`, `categoryID`, `size`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        int result = jdbc.update(
+                sql,
+                item.getItemID(),
+                item.getSellerID(),
+                item.getItemName(),
+                item.getDescription(),
+                item.getStartingBid(),
+                item.getBidStartDate(),
+                item.getBidEndDate(),
+                item.getCategoryID(),
+                item.getSize()
+        );
+        if(result <= 0){
+            System.out.println("add item error");
+        }
+        return item;
     }
 
-    public void updateItem(Item item) {
-        //
+    public void updateItem(Item item, int itemID, int sellerID) {
+        String sql = "update item set itemName = ?, description = ?, startingBid = ?, bidStartDate = ?, bidEndDate = ?, categoryID = ?, size = ? where itemID = ? and sellerID = ? ";
+
+        int result = jdbc.update(
+                sql,
+                item.getItemName(),
+                item.getDescription(),
+                item.getStartingBid(),
+                item.getBidStartDate(),
+                item.getBidEndDate(),
+                item.getCategoryID(),
+                item.getSize(),
+                itemID,
+                sellerID
+        );
+        if(result != 1) {
+            System.out.println("update item error");
+        }
+        return ;
     }
 
     public void deleteItem(Item item) {

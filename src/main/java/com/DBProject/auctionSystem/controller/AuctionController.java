@@ -1,6 +1,7 @@
 package com.DBProject.auctionSystem.controller;
 
 import com.DBProject.auctionSystem.model.Bid;
+import com.DBProject.auctionSystem.model.Item;
 import com.DBProject.auctionSystem.service.AuctionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -45,8 +46,33 @@ public class AuctionController {
     }
 
     // items
+    @GetMapping(path = "/items/allItemsString")
+    public List<String> getAllItemsString() { // could do @PathVariable
+        return auctionService.getAllItemsString();
+    }
     @GetMapping(path = "/items/allItems")
-    public List<String> getAllItems() { // could do @PathVariable
+    public List<Item> getAllItems() {
         return auctionService.getAllItems();
     }
+    @GetMapping(path = "/items/item/{itemID}")
+    public List<Item> getItemsByItemID(@PathVariable int itemID){
+        return auctionService.getItemsByItemID(itemID);
+    }
+    @GetMapping(path = "/items/seller/{sellerID}")
+    public List<Item> getItemsBySellerID(@PathVariable int sellerID){
+        return auctionService.getItemsBySellerID(sellerID);
+    }
+    @GetMapping(path = "/items/category/{categoryID}")
+    public List<Item> getItemsByCategory(@PathVariable int categoryID){
+        return auctionService.getItemsByCategory(categoryID);
+    }
+    @PostMapping(path = "/items/addItem")
+    public Item addItem(@RequestBody Item item){
+        return auctionService.addItem(item);
+    }
+    @PostMapping(path = "/items/updateItem/{itemID}-{sellerID}")
+    public void updateItem(@RequestBody Item item,@PathVariable int itemID, @PathVariable int sellerID){
+        auctionService.updateItem(item, itemID, sellerID);
+    }
+
 }
