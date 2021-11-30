@@ -32,4 +32,9 @@ public class AuctionController {
     public Bid add(@RequestBody Bid bid) {
         return auctionService.addBid(bid);
     }
+
+    @PostMapping(path = "/setWinner/{itemID}-{buyerID}")
+    public void set(@PathVariable int itemID, @PathVariable int buyerID){
+        auctionService.setWinningBid(itemID, buyerID);
+    }
 }
