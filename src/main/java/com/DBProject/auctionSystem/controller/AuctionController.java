@@ -41,8 +41,12 @@ public class AuctionController {
     }
 
     // items
+    @GetMapping(path = "/items/allItemsString")
+    public List<String> getAllItemsString() { // could do @PathVariable
+        return auctionService.getAllItemsString();
+    }
     @GetMapping(path = "/items/allItems")
-    public List<String> getAllItems() { // could do @PathVariable
+    public List<Item> getAllItems() {
         return auctionService.getAllItems();
     }
     @GetMapping(path = "/items/item/{itemID}")

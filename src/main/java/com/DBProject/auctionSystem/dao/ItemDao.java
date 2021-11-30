@@ -17,7 +17,7 @@ public class ItemDao {
     @Autowired
     JdbcTemplate jdbc;
 
-    public List<String> getAllItems(String query){
+    public List<String> getAllItemsString(String query){
         try {
             DataSource ds = jdbc.getDataSource();
             Connection myConn = DataSourceUtils.getConnection(ds);
@@ -45,6 +45,30 @@ public class ItemDao {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public List<Item> getAllItems(){
+        String sql = "SELECT * FROM item";
+        List<Item> item = null;
+
+        try {
+            item = jdbc.query(sql, (rs, rowNum) ->
+                    new Item(
+                            rs.getInt("itemID"),
+                            rs.getInt("sellerID"),
+                            rs.getString("itemName"),
+                            rs.getString("description"),
+                            rs.getDouble("startingBid"),
+                            rs.getTimestamp("bidStartDate").toLocalDateTime(),
+                            rs.getTimestamp("bidEndDate").toLocalDateTime(),
+                            rs.getInt("categoryID"),
+                            rs.getString("size")
+                    ));
+        } catch(Exception e) {
+            System.out.println("get all items error");
+        }
+
+        return item;
     }
 
     public List<Item> getItemByItemID(int itemID) {
