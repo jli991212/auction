@@ -1,15 +1,15 @@
 package com.DBProject.auctionSystem.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Admin extends Member {
-    private int memberID;
-    private boolean approved;
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class Admin {
+    private Integer memberID;
+    private Boolean approved;
 }

@@ -1,18 +1,18 @@
 package com.DBProject.auctionSystem.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Feedback {
-    private int senderID;
-    private int receiverID;
-    private int itemID;
-    private double rating;
+    private Integer senderID;
+    private Integer receiverID;
+    private Integer itemID;
+    private Double rating;
     private String comment;
 }
