@@ -47,7 +47,7 @@ public class ItemDao {
         return null;
     }
 
-    public List<Item> getItemByID(int itemID) {
+    public List<Item> getItemByItemID(int itemID) {
         String sql = "SELECT * FROM item WHERE itemID=" + itemID;
         List<Item> item = null;
 
@@ -65,7 +65,7 @@ public class ItemDao {
                             rs.getString("size")
                     ));
         } catch(Exception e) {
-            System.out.println("find by item error");
+            System.out.println("find by itemID error");
         }
 
         return item;

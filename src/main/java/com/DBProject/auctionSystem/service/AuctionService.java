@@ -4,6 +4,7 @@ import com.DBProject.auctionSystem.dao.BidDao;
 import com.DBProject.auctionSystem.dao.ItemDao;
 import com.DBProject.auctionSystem.dao.MemberDao;
 import com.DBProject.auctionSystem.model.Bid;
+import com.DBProject.auctionSystem.model.Item;
 import com.DBProject.auctionSystem.model.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,5 +39,8 @@ public class AuctionService {
     public List<String> getAllItems() {
         String query1 = "select * from item";
         return itemDao.getAllItems(query1);
+    }
+    public List<Item> getItemsbyItemID(int itemID){
+        return itemDao.getItemByItemID(itemID);
     }
 }
