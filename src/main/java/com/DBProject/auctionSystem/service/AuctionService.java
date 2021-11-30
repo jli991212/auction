@@ -1,11 +1,7 @@
 package com.DBProject.auctionSystem.service;
 
 import com.DBProject.auctionSystem.dao.BidDao;
-<<<<<<< HEAD
-=======
 import com.DBProject.auctionSystem.dao.ItemDao;
-import com.DBProject.auctionSystem.dao.MemberDao;
->>>>>>> eb8562b5c29c9d09c1978aa3c74078917f14b0d5
 import com.DBProject.auctionSystem.model.Bid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
