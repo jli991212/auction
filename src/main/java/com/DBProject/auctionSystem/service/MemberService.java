@@ -21,6 +21,14 @@ public class MemberService {
         return memberDao.getMember(memberID);
     }
 
+    public List<Member> getMemberByEmail(String email) {
+        return memberDao.getMemberByEmail(email);
+    }
+
+    public String verifyMember(String email, String password){
+        return memberDao.verifyMember(email, password);
+    }
+
     public Member addMember(Member member) {
         String memberType = member.getMemberType();
 

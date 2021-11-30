@@ -34,6 +34,16 @@ public class MemberController {
         return memberService.getMember(memberID);
     }
 
+    @GetMapping(path = "/email/{email}")
+    public List<Member> getMemberByEmail(@PathVariable String email) {
+        return memberService.getMemberByEmail(email);
+    }
+
+    @GetMapping(path = "/verify/{email}-{password}")
+    public String verifyMember(@PathVariable String email, @PathVariable String password) {
+        return memberService.verifyMember(email, password);
+    }
+
     @GetMapping(path = "/info")
     public List<String> getInfo() {// could do @PathVariable
         return memberService.getMemberInfo();
