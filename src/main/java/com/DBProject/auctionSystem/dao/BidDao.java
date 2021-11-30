@@ -108,9 +108,18 @@ public class BidDao {
         //
     }
     
-    public void setWinningBid(int bidID) {
-        //
-        //
+    public void setWinningBid(int itemID, int buyerID) {
+        String sql = "update bid set isWinner = true where itemID = ? and buyerID = ?";
+
+        int result = jdbc.update(
+                sql,
+                itemID,
+                buyerID
+        );
+        if(result != 1) {
+            System.out.println("set winner error");
+        }
+        return ;
     }
 
 }

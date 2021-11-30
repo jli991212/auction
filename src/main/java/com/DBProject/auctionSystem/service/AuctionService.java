@@ -27,4 +27,7 @@ public class AuctionService {
     public Bid addBid(Bid bid){
         return bidDao.addBid(bid);
     }
+    public void setWinningBid(int itemID, int buyerID){
+        bidDao.setWinningBid(itemID, buyerID);
+    }
 }
