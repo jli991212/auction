@@ -12,17 +12,22 @@ public class AuctionController {
     @Autowired
     AuctionService auctionService;
 
-    @GetMapping(path = "/allBids")
+    // bids
+    @GetMapping(path = "/bids/allBids")
     public List<String> getAllBids() { // could do @PathVariable
         return auctionService.getAllBids();
     }
+<<<<<<< HEAD
     
     @GetMapping(path = "/buyer/{buyerID}")
+=======
+    @GetMapping(path = "/bids/buyer/{buyerID}")
+>>>>>>> eb8562b5c29c9d09c1978aa3c74078917f14b0d5
     public List<Bid> getBuyer(@PathVariable int buyerID) {
         return auctionService.getBidsByBuyerID(buyerID);
     }
 
-    @GetMapping(path = "/item/{itemID}")
+    @GetMapping(path = "/bids/item/{itemID}")
     public List<Bid> getItem(@PathVariable int itemID) {
         return auctionService.getBidsByItemID(itemID);
     }
@@ -40,5 +45,11 @@ public class AuctionController {
     @DeleteMapping(path = "/deleteBid/{itemID}-{buyerID}")
     public boolean deleteBid(@PathVariable int itemID, @PathVariable int buyerID) {
         return auctionService.deleteBid(itemID, buyerID);
+    }
+
+    // items
+    @GetMapping(path = "/items/allItems")
+    public List<String> getAllItems() { // could do @PathVariable
+        return auctionService.getAllItems();
     }
 }
