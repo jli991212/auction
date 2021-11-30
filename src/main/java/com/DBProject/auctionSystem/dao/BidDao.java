@@ -1,7 +1,6 @@
 package com.DBProject.auctionSystem.dao;
 
 import com.DBProject.auctionSystem.model.Bid;
-import com.DBProject.auctionSystem.model.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceUtils;
@@ -55,11 +54,11 @@ public class BidDao {
         try {
             bid = jdbc.query(sql, (rs, rowNum) ->
                     new Bid(
-                            rs.getInt("itemID"),
-                            rs.getInt("buyerID"),
-                            rs.getDouble("bidPrice"),
-                            rs.getTimestamp("bidTime").toLocalDateTime(),
-                            rs.getBoolean("isWinner")
+                        rs.getInt("itemID"),
+                        rs.getInt("buyerID"),
+                        rs.getDouble("bidPrice"),
+                        rs.getTimestamp("bidTime").toLocalDateTime(),
+                        rs.getBoolean("isWinner")
                     ));
         } catch(Exception e) {
             System.out.println("find by buyer error");
@@ -75,11 +74,11 @@ public class BidDao {
         try {
             bid = jdbc.query(sql, (rs, rowNum) ->
                     new Bid(
-                            rs.getInt("itemID"),
-                            rs.getInt("buyerID"),
-                            rs.getDouble("bidPrice"),
-                            rs.getTimestamp("bidTime").toLocalDateTime(),
-                            rs.getBoolean("isWinner")
+                        rs.getInt("itemID"),
+                        rs.getInt("buyerID"),
+                        rs.getDouble("bidPrice"),
+                        rs.getTimestamp("bidTime").toLocalDateTime(),
+                        rs.getBoolean("isWinner")
                     ));
         } catch(Exception e) {
             System.out.println("find by item error");
@@ -89,15 +88,14 @@ public class BidDao {
     }
 
     public Bid addBid(Bid bid) {
-        String sql = "INSERT INTO bid (`itemID`, `buyerID`, `bidPrice`, `bidTime`, `isWinner`) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO bid (`itemID`, `buyerID`, `bidPrice`, `bidTime`) VALUES (?, ?, ?, ?)";
 
         int result = jdbc.update(
-                sql,
-                bid.getItemID(),
-                bid.getBuyerID(),
-                bid.getBidPrice(),
-                bid.getBidTime(),
-                bid.getIsWinner()
+            sql,
+            bid.getItemID(),
+            bid.getBuyerID(),
+            bid.getBidPrice(),
+            bid.getBidTime()
         );
 
         return result > 0 ? bid : null;
@@ -109,17 +107,17 @@ public class BidDao {
     }
     
     public void setWinningBid(int itemID, int buyerID) {
-        String sql = "update bid set isWinner = true where itemID = ? and buyerID = ?";
+        String sql = "UPDATE bid SET isWinner = true WHERE itemID = ? AND buyerID = ?";
 
         int result = jdbc.update(
-                sql,
-                itemID,
-                buyerID
+            sql,
+            itemID,
+            buyerID
         );
+
         if(result != 1) {
             System.out.println("set winner error");
         }
-        return ;
     }
 
 }

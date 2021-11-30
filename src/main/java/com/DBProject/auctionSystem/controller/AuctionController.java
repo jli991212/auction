@@ -1,9 +1,7 @@
 package com.DBProject.auctionSystem.controller;
 
 import com.DBProject.auctionSystem.model.Bid;
-import com.DBProject.auctionSystem.model.Member;
 import com.DBProject.auctionSystem.service.AuctionService;
-import com.DBProject.auctionSystem.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +16,7 @@ public class AuctionController {
     public List<String> getAllBids() { // could do @PathVariable
         return auctionService.getAllBids();
     }
+    
     @GetMapping(path = "/buyer/{buyerID}")
     public List<Bid> getBuyer(@PathVariable int buyerID) {
         return auctionService.getBidsByBuyerID(buyerID);
