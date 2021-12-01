@@ -2,6 +2,8 @@ package com.DBProject.auctionSystem.dao;
 
 import com.DBProject.auctionSystem.model.Bid;
 import com.DBProject.auctionSystem.model.Item;
+import com.DBProject.auctionSystem.util.ResultMapper;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceUtils;
@@ -49,26 +51,7 @@ public class ItemDao {
 
     public List<Item> getAllItems(){
         String sql = "SELECT * FROM item";
-        List<Item> item = null;
-
-        try {
-            item = jdbc.query(sql, (rs, rowNum) ->
-                    new Item(
-                            rs.getInt("itemID"),
-                            rs.getInt("sellerID"),
-                            rs.getString("itemName"),
-                            rs.getString("description"),
-                            rs.getDouble("startingBid"),
-                            rs.getTimestamp("bidStartDate").toLocalDateTime(),
-                            rs.getTimestamp("bidEndDate").toLocalDateTime(),
-                            rs.getInt("categoryID"),
-                            rs.getString("size")
-                    ));
-        } catch(Exception e) {
-            System.out.println("get all items error");
-        }
-
-        return item;
+        return new ResultMapper<Item>().queryForList(jdbc, sql);
     }
 
     public List<Item> getItemByItemID(int itemID) {
@@ -82,30 +65,7 @@ public class ItemDao {
                             rs.getInt("sellerID"),
                             rs.getString("itemName"),
                             rs.getString("description"),
-                            rs.getDouble("startingBid"),
-                            rs.getTimestamp("bidStartDate").toLocalDateTime(),
-                            rs.getTimestamp("bidEndDate").toLocalDateTime(),
-                            rs.getInt("categoryID"),
-                            rs.getString("size")
-                    ));
-        } catch(Exception e) {
-            System.out.println("find by itemID error");
-        }
-
-        return item;
-    }
-
-    public List<Item> getItemsBySellerID(int sellerID) {
-        String sql = "SELECT * FROM item WHERE sellerID=" + sellerID;
-        List<Item> item = null;
-
-        try {
-            item = jdbc.query(sql, (rs, rowNum) ->
-                    new Item(
-                            rs.getInt("itemID"),
-                            rs.getInt("sellerID"),
-                            rs.getString("itemName"),
-                            rs.getString("description"),
+                            rs.getString("image"),
                             rs.getDouble("startingBid"),
                             rs.getTimestamp("bidStartDate").toLocalDateTime(),
                             rs.getTimestamp("bidEndDate").toLocalDateTime(),
@@ -117,6 +77,11 @@ public class ItemDao {
         }
 
         return item;
+    }
+
+    public List<Item> getItemsBySellerID(int sellerID) {
+        String sql = "SELECT * FROM item WHERE sellerID=" + sellerID;
+        return new ResultMapper<Item>().queryForList(jdbc, sql);
     }
 
     public List<Item> getItemsByCategory(int categoryID) {
@@ -130,6 +95,7 @@ public class ItemDao {
                             rs.getInt("sellerID"),
                             rs.getString("itemName"),
                             rs.getString("description"),
+                            rs.getString("image"),
                             rs.getDouble("startingBid"),
                             rs.getTimestamp("bidStartDate").toLocalDateTime(),
                             rs.getTimestamp("bidEndDate").toLocalDateTime(),
@@ -137,7 +103,7 @@ public class ItemDao {
                             rs.getString("size")
                     ));
         } catch(Exception e) {
-            System.out.println("find by sellerID error");
+            System.out.println("find by category error");
         }
 
         return item;

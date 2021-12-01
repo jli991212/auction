@@ -55,6 +55,7 @@ CREATE TABLE item (
     sellerID INT NOT NULL,
     itemName VARCHAR(40) NOT NULL,
     description VARCHAR(200) NOT NULL,
+    image VARCHAR(200),
     startingBid DECIMAL(10, 2) NOT NULL,
     bidStartDate DATE NOT NULL,
     bidEndDate DATE NOT NULL,
@@ -116,7 +117,9 @@ LIMIT 10;
 
 -- TOP CATEGORIES VIEW
 CREATE OR REPLACE VIEW top_categories AS
-SELECT category.name AS category, COUNT(*) AS totalItems FROM category, item
+SELECT category.name AS category, COUNT(item.itemID) AS totalItems
+FROM category LEFT OUTER JOIN item
+ON category.categoryID = item.categoryID 
 GROUP BY(category.categoryID)
 ORDER BY COUNT(item.itemID) DESC
 LIMIT 10;

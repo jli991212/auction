@@ -55,8 +55,8 @@ public class AuctionController {
         return auctionService.getAllItems();
     }
     @GetMapping(path = "/items/item/{itemID}")
-    public List<Item> getItemsByItemID(@PathVariable int itemID){
-        return auctionService.getItemsByItemID(itemID);
+    public List<Item> getItemByItemID(@PathVariable int itemID){
+        return auctionService.getItemByItemID(itemID);
     }
     @GetMapping(path = "/items/seller/{sellerID}")
     public List<Item> getItemsBySellerID(@PathVariable int sellerID){

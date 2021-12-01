@@ -1,7 +1,6 @@
 package com.DBProject.auctionSystem.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import java.sql.Date;
 import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
@@ -17,6 +16,7 @@ public class Item {
     private Integer sellerID;
     private String itemName;
     private String description;
+    private String image;
     private Double startingBid;
     private LocalDateTime bidStartDate;
     private LocalDateTime bidEndDate;

@@ -53,7 +53,7 @@ public class AuctionService {
         return itemDao.getAllItems();
     }
 
-    public List<Item> getItemsByItemID(int itemID){
+    public List<Item> getItemByItemID(int itemID){
         return itemDao.getItemByItemID(itemID);
     }
 
