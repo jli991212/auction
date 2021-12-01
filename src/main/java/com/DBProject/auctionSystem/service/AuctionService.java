@@ -17,12 +17,6 @@ public class AuctionService {
     @Autowired
     ItemDao itemDao;
 
-    // bids
-    public List<String> getAllBids() {
-        String query1 = "select * from bid";
-        return bidDao.getAllBids(query1);
-    }
-
     public List<Bid> getBidsByBuyerID(int buyerID) {
         return bidDao.getBidsByBuyerID(buyerID);
     }

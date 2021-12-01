@@ -1,7 +1,6 @@
 package com.DBProject.auctionSystem.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import java.sql.Date;
 import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;

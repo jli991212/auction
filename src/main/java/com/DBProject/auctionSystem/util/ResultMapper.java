@@ -1,25 +1,33 @@
 package com.DBProject.auctionSystem.util;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.lang.Nullable;
 
 public class ResultMapper<T> {
+    ObjectMapper om;
+
+    public ResultMapper() {
+        om = new ObjectMapper();
+        om.registerModule(new JavaTimeModule());
+        om.setDateFormat(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'"));
+    }
+    
     public List<T> queryForList(JdbcTemplate jdbc, String sql, @Nullable Object ...args) {
         List<T> list = new ArrayList<>();
 
         try {
-            ObjectMapper om = new ObjectMapper();
             List<Map<String, Object>> result = jdbc.queryForList(sql, args);
-
             list = om.convertValue(result, new TypeReference<List<T>>(){});
-        } catch(Exception e) {}
+        } catch(Exception e) { }
 
         return list;
     }
@@ -28,13 +36,9 @@ public class ResultMapper<T> {
         T object = null;
 
         try {
-            ObjectMapper om = new ObjectMapper();
             Map<String, Object> result = jdbc.queryForMap(sql, args);
-
             object = om.convertValue(result, tClass);
-        } catch(Exception e) {
-            System.out.println(e);
-        }
+        } catch(Exception e) { }
 
         return object;
     }
