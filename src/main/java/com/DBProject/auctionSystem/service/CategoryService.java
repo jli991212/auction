@@ -14,11 +14,27 @@ public class CategoryService {
     @Autowired
     CategoryDao categoryDao;
 
+    public Category getCategoryByCategoryID(int categoryID) {
+        return categoryDao.getCategoryByCategoryID(categoryID);
+    }
+
     public List<Category> getAllCategories() {
         return categoryDao.getAllCategories();
     }
 
     public List<TopCategoryDto> getTopCategories() {
         return categoryDao.getTopCategories();
+    }
+
+    public Category addCategory(Category category) {
+        return categoryDao.addCategory(category);
+    }
+
+    public boolean updateCategory(Category category, int categoryID) {
+        return categoryDao.updateCategory(category, categoryID);
+    }
+
+    public boolean deleteCategory(int categoryID) {
+        return categoryDao.deleteCategory(categoryID);
     }
 }
