@@ -32,7 +32,9 @@ public class ResultMapper<T> {
             Map<String, Object> result = jdbc.queryForMap(sql, args);
 
             object = om.convertValue(result, tClass);
-        } catch(Exception e) {}
+        } catch(Exception e) {
+            System.out.println(e);
+        }
 
         return object;
     }

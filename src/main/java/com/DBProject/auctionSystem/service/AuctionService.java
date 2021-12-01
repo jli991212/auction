@@ -44,16 +44,11 @@ public class AuctionService {
     }
 
     // items
-    public List<String> getAllItemsString() {
-        String query1 = "select * from item";
-        return itemDao.getAllItemsString(query1);
-    }
-
     public List<Item> getAllItems() {
         return itemDao.getAllItems();
     }
 
-    public List<Item> getItemByItemID(int itemID){
+    public Item getItemByItemID(int itemID){
         return itemDao.getItemByItemID(itemID);
     }
 
