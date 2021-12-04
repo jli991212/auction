@@ -16,9 +16,7 @@
         A simple primary alert—check it out!
     </div>
     <form  th:object="${member}"  method="post" th:action="@{/members/register}"  cssClass="form" >
-
         <input type="hidden" th:field="*{memberID}"/>
-
 
         <div class="form-group">
             <label>email</label>
@@ -40,6 +38,7 @@
             <label>homeAddress</label>
             <input type="text" class="form-control" th:field="*{homeAddress}" />
         </div>
+
         <div class="form-group">
             <label>memberType</label>
             <div>
@@ -48,16 +47,14 @@
                 <label><input type="radio" name="memberType" value="buyer" th:field="*{memberType}"/>Buyer</label>
             </div>
         </div>
+
         <button type="submit" class="btn btn-primary">Save</button>
     </form>
     <br>
 
     <footer>
-
         <th:block th:include="fragments/footer :: footer"></th:block>
-
     </footer>
-
 </div>
 </body>
 </html>
