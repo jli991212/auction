@@ -25,7 +25,7 @@ public class MemberService {
     @Autowired
     SellerDao sellerDao;
 
-    public List<String> getMembers() {
+    public List<Member> getMembers() {
         return memberDao.getMembers();
     }
 

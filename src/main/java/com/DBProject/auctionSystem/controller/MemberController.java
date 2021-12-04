@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 @RestController
 @RequestMapping(path = "/members")
@@ -22,8 +23,19 @@ public class MemberController {
     @Autowired
     MemberService memberService;
 
+    @GetMapping(path="/all")
+    public ModelAndView allmembers() {
+        ModelAndView model = new ModelAndView();
+        List<Member> memberlist = this.index();
+
+        model.addObject("memberlists", memberlist);
+        model.setViewName("member_list");
+        
+        return model;
+    }
+
     @GetMapping
-    public List<String> index() {
+    public List<Member> index() {
         return memberService.getMembers();
     }
 

@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.DBProject.auctionSystem.model.Bid;
 import com.DBProject.auctionSystem.model.Member;
+import com.DBProject.auctionSystem.util.ResultMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -19,9 +20,9 @@ public class MemberDao {
     @Autowired
     JdbcTemplate jdbc;
 
-    public List<String> getMembers() {
+    public List<Member> getMembers() {
         String sql = "SELECT name FROM member";
-        return jdbc.queryForList(sql, String.class);
+        return new ResultMapper<Member>().queryForList(jdbc, sql);
     }
 
     public Member getMember(int memberID) {
