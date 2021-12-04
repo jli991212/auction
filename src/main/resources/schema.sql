@@ -125,4 +125,17 @@ ON category.categoryID = item.categoryID
 GROUP BY(category.categoryID)
 ORDER BY COUNT(item.itemID) DESC
 LIMIT 10;
+
+-- ITEM DETAIL VIEW
+CREATE OR REPLACE VIEW item_detail AS
+SELECT item.*, category.name category, member.name sellerName,
+IFNULL(bid.current, item.startingBid) currentBid, bid.count totalBids
+FROM (item NATURAL JOIN (
+    SELECT item.itemID, MAX(bid.bidPrice) current,
+    COUNT(bid.itemID) count
+    FROM item LEFT OUTER JOIN bid
+    ON item.itemID = bid.itemID
+    GROUP BY item.itemID
+) as bid NATURAL JOIN category)
+JOIN member ON item.sellerID = member.memberID;
 ------------------------- END VIEWS ------------------------

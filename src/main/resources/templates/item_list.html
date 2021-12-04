@@ -11,41 +11,66 @@
 
     <br>
 
-    <h1>ALL item LIST :) </h1>
+    <h1>ALL AUCTIONS</h1>
 
     <br>
 
-    <table class="table table-striped">
-        <thead>
-            <th scope="row"> item name</th>
-        </thead>
-
-        <tbody>
-            <tr th:each="item : ${itemlists}">
-                <td th:text="${item.itemName}"></td>
-            </tr>
-        </tbody>
-    </table>
-
-    <nav aria-label="...">
-        <br>
-        <ul class="pagination justify-content-center">
-            <li class="page-item disabled">
-                <span class="page-link">Previous</span>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item active" aria-current="page">
-            <span class="page-link">
-                2
-                <span class="sr-only">(current)</span>
-            </span>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-                <a class="page-link" href="#">Next</a>
-            </li>
-        </ul>
-    </nav>
+    <div class="row justify-content-center mb-3" th:each="item : ${itemlists}">
+        <div class="col-md-12 col-xl-10">
+            <div class="card shadow-0 border rounded-3">
+            <div class="card-body" style="background-color: #fbfbfb;">
+                <div class="row">
+                <div class="col-md-12 col-lg-3 col-xl-3 mb-4 mb-lg-0">
+                    <div class="bg-image hover-zoom ripple rounded ripple-surface">
+                        <img
+                            th:src="${item.image}"
+                            alt="image"
+                            th:alt="${item.itemName}"
+                            class="w-100 h-100"
+                        />
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-6 col-xl-6">
+                    <h5 th:text="${item.itemName}"></h5>
+                    <div class="mask text-white">
+                        <div class="d-flex justify-content-start align-items-end h-100">
+                            <h5><span class="badge bg-info ms-2" th:text="${item.category}"></span></h5>
+                        </div>
+                    </div>
+                    <div class="mb-2 text-muted small">
+                        <span>Item Size <span class="text-primary"> • </span>
+                            <span th:text="${item.size}"></span><br />
+                        </span>
+                        <span>Auction Start <span class="text-primary"> • </span>
+                            <span th:text="${item.bidStartDate}"></span><br />
+                        </span>
+                        <span>Auction End <span class="text-primary"> • </span>
+                            <span th:text="${item.bidEndDate}"></span><br />
+                        </span>
+                    </div>
+                    <p class="mb-4 mb-md-0">
+                        <span
+                            th:text="${#strings.abbreviate(item.description + ' There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which do not look even slightly believable.', 110)}"
+                        ></span> 
+                    </p>
+                </div>
+                <div class="col-md-6 col-lg-3 col-xl-3 border-sm-start-none border-start">
+                    <div class="d-flex flex-row align-items-center mb-1">
+                        <h4 class="mb-1 me-1" th:text="${#numbers.formatCurrency(item.currentBid)}"></h4>
+                    </div>
+                    <h6 class="text-secondary" th:text="${item.totalBids + ' Bids'}"></h6>
+                    <div class="d-flex flex-column mt-4">
+                    <button class="btn btn-primary btn-sm" type="button">Bid</button>
+                    <button class="btn btn-outline-primary btn-sm mt-2" type="button">
+                        Details
+                    </button>
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
 
     <footer>
         <th:block th:include="fragments/footer :: footer"></th:block>

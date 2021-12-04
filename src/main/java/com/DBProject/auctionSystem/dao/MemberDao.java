@@ -21,7 +21,7 @@ public class MemberDao {
     JdbcTemplate jdbc;
 
     public List<Member> getMembers() {
-        String sql = "SELECT name FROM member";
+        String sql = "SELECT * FROM member";
         return new ResultMapper<Member>().queryForList(jdbc, sql);
     }
 

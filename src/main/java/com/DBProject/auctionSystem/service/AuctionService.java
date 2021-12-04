@@ -2,6 +2,7 @@ package com.DBProject.auctionSystem.service;
 
 import com.DBProject.auctionSystem.dao.BidDao;
 import com.DBProject.auctionSystem.dao.ItemDao;
+import com.DBProject.auctionSystem.dto.ItemDetailDto;
 import com.DBProject.auctionSystem.model.Bid;
 import com.DBProject.auctionSystem.model.Item;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +43,7 @@ public class AuctionService {
     }
 
     // items
-    public List<Item> getAllItems() {
+    public List<ItemDetailDto> getAllItems() {
         return itemDao.getAllItems();
     }
 

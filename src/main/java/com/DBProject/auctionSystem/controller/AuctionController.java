@@ -1,5 +1,6 @@
 package com.DBProject.auctionSystem.controller;
 
+import com.DBProject.auctionSystem.dto.ItemDetailDto;
 import com.DBProject.auctionSystem.model.Bid;
 import com.DBProject.auctionSystem.model.Item;
 import com.DBProject.auctionSystem.service.AuctionService;
@@ -18,7 +19,7 @@ public class AuctionController {
     @GetMapping
     public ModelAndView allAuctionItems() {
         ModelAndView model = new ModelAndView();
-        List<Item> itemlist = this.getAllItems();
+        List<ItemDetailDto> itemlist = this.getAllItems();
         
         model.addObject("itemlists", itemlist);
         model.setViewName("item_list");
@@ -87,7 +88,7 @@ public class AuctionController {
 
     // items
     @GetMapping(path = "/items")
-    public List<Item> getAllItems() {
+    public List<ItemDetailDto> getAllItems() {
         return auctionService.getAllItems();
     }
 

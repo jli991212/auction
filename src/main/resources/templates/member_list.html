@@ -13,12 +13,13 @@
     <br>
     <table class="table table-striped">
         <thead>
-        <th scope="row"> member name</th>
-       
+            <th scope="row"> Member Name</th>
+            <th scope="row"> Member Type</th>
         </thead>
         <tbody>
             <tr th:each="member : ${memberlists}">
                 <td th:text="${member.name}"></td> 
+                <td th:text="${member.memberType}"></td> 
             </tr>
         </tbody>
     </table>

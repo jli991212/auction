@@ -1,5 +1,6 @@
 package com.DBProject.auctionSystem.dao;
 
+import com.DBProject.auctionSystem.dto.ItemDetailDto;
 import com.DBProject.auctionSystem.model.Item;
 import com.DBProject.auctionSystem.util.ResultMapper;
 
@@ -14,9 +15,9 @@ public class ItemDao {
     @Autowired
     JdbcTemplate jdbc;
 
-    public List<Item> getAllItems(){
-        String sql = "SELECT * FROM item";
-        return new ResultMapper<Item>().queryForList(jdbc, sql);
+    public List<ItemDetailDto> getAllItems(){
+        String sql = "SELECT * FROM item_detail";
+        return new ResultMapper<ItemDetailDto>().queryForList(jdbc, sql);
     }
 
     public Item getItemByItemID(int itemID) {
