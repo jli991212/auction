@@ -106,14 +106,16 @@ CREATE TABLE feedback (
 ------------------------ START VIEWS -----------------------
 -- TOP AUCTIONS VIEW
 CREATE OR REPLACE VIEW top_auctions AS
-SELECT item.*, category.name AS category, member.name, count(*) AS totalBids
-FROM bid, item, category, member
-WHERE bid.itemID = item.itemID
-AND member.memberID = item.sellerID
-AND NOW() < item.bidEndDate
-GROUP BY (bid.itemID)
-ORDER BY COUNT(bid.itemID) DESC
-LIMIT 10;
+SELECT item.*, sorted_items.totalBids totalBids
+FROM item NATURAL JOIN (
+    SELECT item.itemID, COUNT(bid.itemID) totalBids
+    FROM item LEFT OUTER JOIN bid
+    ON item.itemID = bid.itemID
+    WHERE NOW() < item.bidEndDate
+    GROUP BY (item.itemID)
+    ORDER BY COUNT(bid.itemID) DESC
+    LIMIT 10
+) sorted_items;
 
 -- TOP CATEGORIES VIEW
 CREATE OR REPLACE VIEW top_categories AS
