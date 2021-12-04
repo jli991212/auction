@@ -5,6 +5,7 @@ import com.DBProject.auctionSystem.model.Item;
 import com.DBProject.auctionSystem.service.AuctionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -13,6 +14,17 @@ import java.util.List;
 public class AuctionController {
     @Autowired
     AuctionService auctionService;
+
+    @GetMapping
+    public ModelAndView allAuctionItems(){
+        ModelAndView model = new ModelAndView();
+        List<Item> itemlist = this.getAllItems();
+        
+        model.addObject("itemlists", itemlist);
+        model.setViewName("item_list");
+
+        return model;
+    }
 
     // bids
     @GetMapping(path = "/bids/buyer/{buyerID}")

@@ -1,7 +1,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light" xmlns:th="http://www.thymeleaf.org">
 
-    <a class="navbar-brand" href="#">online auction</a>
+    <a class="navbar-brand" th:href="@{/}">online auction</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -14,12 +14,12 @@
                 <a class="nav-link" th:href="@{/members/all}">member list</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/auctions/items/allItems}">item list</a>
+                <a class="nav-link" th:href="@{/auctions}">item list</a>
             </li>
             
-            <li class="nav-item right">
+            <!-- <li class="nav-item right">
                 <a class="nav-link navbar-nav justify-content-end" href="#" tabindex="-1" aria-disabled="true">About</a>
-            </li>
+            </li> -->
         </ul>
        
     </div>
