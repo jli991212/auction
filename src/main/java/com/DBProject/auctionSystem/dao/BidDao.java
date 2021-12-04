@@ -15,6 +15,11 @@ public class BidDao {
     @Autowired
     JdbcTemplate jdbc;
 
+    public List<Bid> getAllBids() {
+        String sql = "SELECT * FROM bid ORDER BY bidTime DESC";
+        return new ResultMapper<Bid>().queryForList(jdbc, sql);
+    }
+
     public List<Bid> getBidsByBuyerID(int buyerID) {
         String sql = "SELECT * FROM bid WHERE buyerID=?";
         return new ResultMapper<Bid>().queryForList(jdbc, sql, buyerID);

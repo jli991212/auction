@@ -16,7 +16,7 @@ public class AuctionController {
     AuctionService auctionService;
 
     @GetMapping
-    public ModelAndView allAuctionItems(){
+    public ModelAndView allAuctionItems() {
         ModelAndView model = new ModelAndView();
         List<Item> itemlist = this.getAllItems();
         
@@ -27,6 +27,22 @@ public class AuctionController {
     }
 
     // bids
+    @GetMapping(path = "/bids/all")
+    public ModelAndView allBids() {
+        ModelAndView model = new ModelAndView();
+        List<Bid> bidlist = this.getAllBids();
+
+        model.addObject("bidLists", bidlist);
+        model.setViewName("bid_list");
+
+        return model;
+    }
+
+    @GetMapping(path = "/bids")
+    public List<Bid> getAllBids() {
+        return auctionService.getAllBids();
+    }
+
     @GetMapping(path = "/bids/buyer/{buyerID}")
     public List<Bid> getBuyer(@PathVariable int buyerID) {
         return auctionService.getBidsByBuyerID(buyerID);

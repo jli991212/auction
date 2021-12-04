@@ -6,25 +6,20 @@
 <body>
 <div class="container">
     <br>
-
+    
     <nav>  <th:block th:replace="fragments/nav :: nav"></th:block>   </nav>
 
-<br>
-
-    <h1>
-
-        WELCOME TO mini clothes auctions
-    </h1>
-    <h4>To see List  <a th:href="@{/auctions/bids/allBids}">Click Here</a></h4>
     <br>
 
-
-
+    <h1>
+        WELCOME TO mini clothes auctions
+    </h1>
+    <h4>To see newest bids <a th:href="@{/auctions/bids/all}">Click Here</a></h4>
+    <br>
 
     <footer>
-<th:block th:include="fragments/footer :: footer"></th:block>
+        <th:block th:include="fragments/footer :: footer"></th:block>
     </footer>
-
 </div>
 </body>
 </html>
