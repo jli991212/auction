@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <th:block th:include="fragments/header :: head"> </th:block>
+</head>
+<body>
+<div class="container">
+    <br>
+    <nav>  <th:block th:replace="fragments/nav :: nav"></th:block>   </nav>
+    <br>
+    <h1>
+        WELCOME TO COURSE ENTRY FORM ::::::::::::::::::::::::::::::::
+    </h1>
+
+    <div class="alert alert-primary" role="alert">
+        A simple primary alert—check it out!
+    </div>
+    <form  th:object="${courseForm}"  method="post" th:action="@{/Member/add}"  cssClass="form" >
+
+        <input type="hidden" th:field="*{memberID}"/>
+
+
+        <div class="form-group">
+            <label>email</label>
+            <input th:field="*{email}" type="text" class="form-control"  />
+        </div>
+        <div class="form-group">
+            <label>name</label>
+            <input type="text" class="form-control" th:field="*{name}" />
+        </div>
+          <div class="form-group">
+            <label>password </label>
+            <input type="text" class="form-control" th:field="*{password}" />
+        </div>
+        <div class="form-group">
+            <label>phoneNumber</label>
+            <input type="text" class="form-control" th:field="*{phoneNumber}" />
+        </div>
+        <div class="form-group">
+            <label>homeAddress</label>
+            <input type="text" class="form-control" th:field="*{homeAddress}" />
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+    <br>
+
+    <footer>
+
+        <th:block th:include="fragments/footer :: footer"></th:block>
+
+    </footer>
+
+</div>
+</body>
+</html>
