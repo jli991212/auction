@@ -10,6 +10,7 @@ import com.DBProject.auctionSystem.service.MemberService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,6 +33,23 @@ public class MemberController {
         model.setViewName("member_list");
         
         return model;
+    }
+
+    @GetMapping(path = "/register")
+    public ModelAndView registerMember(){
+        Member member = new Member();
+        ModelAndView modelAndView = new ModelAndView();
+
+        modelAndView.addObject("member", member);
+        modelAndView.setViewName("add_member");
+
+        return modelAndView;
+    }
+
+    @PostMapping(path = "/register")
+    public ModelAndView registerMember(@ModelAttribute Member member){
+        this.add(member);
+        return new ModelAndView("redirect:/members/all");
     }
 
     @GetMapping

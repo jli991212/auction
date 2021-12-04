@@ -4,7 +4,6 @@ import com.DBProject.auctionSystem.model.Bid;
 import com.DBProject.auctionSystem.model.Item;
 import com.DBProject.auctionSystem.service.AuctionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 

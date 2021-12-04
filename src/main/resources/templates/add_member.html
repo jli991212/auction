@@ -15,14 +15,14 @@
     <div class="alert alert-primary" role="alert">
         A simple primary alert—check it out!
     </div>
-    <form  th:object="${courseForm}"  method="post" th:action="@{/Member/add}"  cssClass="form" >
+    <form  th:object="${member}"  method="post" th:action="@{/members/register}"  cssClass="form" >
 
         <input type="hidden" th:field="*{memberID}"/>
 
 
         <div class="form-group">
             <label>email</label>
-            <input th:field="*{email}" type="text" class="form-control"  />
+            <input th:field="*{email}" type="email" class="form-control"  />
         </div>
         <div class="form-group">
             <label>name</label>
@@ -30,7 +30,7 @@
         </div>
           <div class="form-group">
             <label>password </label>
-            <input type="text" class="form-control" th:field="*{password}" />
+            <input type="password" class="form-control" th:field="*{password}" />
         </div>
         <div class="form-group">
             <label>phoneNumber</label>
@@ -39,6 +39,14 @@
         <div class="form-group">
             <label>homeAddress</label>
             <input type="text" class="form-control" th:field="*{homeAddress}" />
+        </div>
+        <div class="form-group">
+            <label>memberType</label>
+            <div>
+                <label><input type="radio" name="memberType" value="admin" th:field="*{memberType}"/>Admin</label>
+                <label><input type="radio" name="memberType" value="seller" th:field="*{memberType}"/>Seller</label>
+                <label><input type="radio" name="memberType" value="buyer" th:field="*{memberType}"/>Buyer</label>
+            </div>
         </div>
         <button type="submit" class="btn btn-primary">Save</button>
     </form>
