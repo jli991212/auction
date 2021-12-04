@@ -9,25 +9,34 @@
     <nav>  <th:block th:replace="fragments/nav :: nav"></th:block>   </nav>
     <br>
     <h1>
-        WELCOME TO COURSE ENTRY FORM ::::::::::::::::::::::::::::::::
+        WELCOME TO AUCTION BIDDING
     </h1>
 
     <div class="alert alert-primary" role="alert">
         A simple primary alert—check it out!
     </div>
-    <form  th:object="${courseForm}"  method="post" th:action="@{/Auctions/addbid}"  cssClass="form" >
+    <form  th:object="${bidform}"  method="post" th:action="@{/auctions/addbid}"  cssClass="form" >
+        <!-- <input type="hidden" th:field="*{itemID}"/> -->
 
-        <input type="hidden" th:field="*{itemID}"/>
+        <div class="form-group">
+            <label>itemID</label>
+            <input th:field="*{itemID}" type="number" min="0" class="form-control"  />
+        </div>
 
+        <div class="form-group">
+            <label>buyerID</label>
+            <input th:field="*{buyerID}" type="number" min="0" class="form-control"  />
+        </div>
 
         <div class="form-group">
             <label>bid price</label>
             <input th:field="*{bidPrice}" type="text" class="form-control"  />
         </div>
-        <div class="form-group">
+
+        <!-- <div class="form-group">
             <label>bid time</label>
             <input type="text" class="form-control" th:field="*{bidTime}" />
-        </div>
+        </div> -->
           
         <button type="submit" class="btn btn-primary">Save</button>
     </form>
