@@ -11,6 +11,7 @@ import java.util.List;
 public class SellerDao {
     @Autowired
     JdbcTemplate jdbc;
+
     public List<Seller> getSellers() {
         String sql = "SELECT * FROM seller";
         List<Seller> seller = null;
@@ -28,5 +29,18 @@ public class SellerDao {
         }
 
         return seller;
+    }
+
+    public Seller addSeller(Seller seller) {
+        String sql = "INSERT INTO seller (`memberID`, `bankAccount`, `routingNumber`) VALUES (?, ?, ?)";
+
+        int result = jdbc.update(
+            sql,
+            seller.getMemberID(),
+            seller.getBankAccount(),
+            seller.getRoutingNumber()
+        );
+
+        return result == 1 ? seller : null;
     }
 }

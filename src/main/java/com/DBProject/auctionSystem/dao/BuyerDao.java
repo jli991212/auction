@@ -11,6 +11,7 @@ import java.util.List;
 public class BuyerDao {
     @Autowired
     JdbcTemplate jdbc;
+
     public List<Buyer> getBuyers() {
         String sql = "SELECT * FROM buyer";
         List<Buyer> buyer = null;
@@ -27,5 +28,17 @@ public class BuyerDao {
         }
 
         return buyer;
+    }
+
+    public Buyer addBuyer(Buyer buyer) {
+        String sql = "INSERT INTO buyer (`memberID`, `shippingAddress`) VALUES (?, ?)";
+
+        int result = jdbc.update(
+            sql,
+            buyer.getMemberID(),
+            buyer.getShippingAddress()
+        );
+
+        return result == 1 ? buyer : null;
     }
 }

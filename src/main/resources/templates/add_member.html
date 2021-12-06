@@ -8,49 +8,80 @@
     <br>
     <nav>  <th:block th:replace="fragments/nav :: nav"></th:block>   </nav>
     <br>
-    <h1>
-        WELCOME TO ADD MEMBER FORM
-    </h1>
+    <th:block th:switch="${memberType}">
+        <h1 th:case="'seller'">WELCOME TO ADD SELLER FORM</h1>
+        <h1 th:case="'buyer'">WELCOME TO ADD BUYER FORM</h1>
+        <h1 th:case="*">WELCOME TO ADD MEMBER FORM</h1>
+    </th:block>
 
-    <div class="alert alert-alert" role="alert" th:if="${param.error}">
+    <div class="alert alert-alert" role="alert" th:if="${error}">
         Error Signing Up
     </div>
 
-    <form th:object="${member}" method="post" th:action="@{/members/register}" cssClass="form" >
-        <input type="hidden" th:field="*{memberID}"/>
-
-        <div class="form-group">
-            <label>Email</label>
-            <input th:field="*{email}" type="email" class="form-control" required />
-        </div>
-        <div class="form-group">
-            <label>Name</label>
-            <input type="text" class="form-control" th:field="*{name}" required />
-        </div>
-          <div class="form-group">
-            <label>Password</label>
-            <input type="password" class="form-control" th:field="*{password}" required />
-        </div>
-        <div class="form-group">
-            <label>Phone Number</label>
-            <input type="text" class="form-control" th:field="*{phoneNumber}" />
-        </div>
-        <div class="form-group">
-            <label>Home Address</label>
-            <input type="text" class="form-control" th:field="*{homeAddress}" />
-        </div>
-
-        <div class="form-group">
-            <label>Member Type</label>
-            <div style="display: flex; gap: 10px;">
-                <label><input type="radio" name="memberType" value="buyer" th:field="*{memberType}" required checked/> Buyer</label>
-                <label><input type="radio" name="memberType" value="seller" th:field="*{memberType}" required/> Seller</label>
-                <label><input type="radio" name="memberType" value="admin" th:field="*{memberType}" required/> Admin</label>
+    <th:block th:switch="${memberType}">
+        <form th:case="'seller'" th:object="${seller}" method="post" th:action="@{/members/sellers/register}" cssClass="form" >
+            <input type="hidden" th:field="*{memberID}"/>
+    
+            <div class="form-group">
+                <label>Bank Account</label>
+                <input th:field="*{bankAccount}" type="text" pattern="\d+" title="Valid bank account number" class="form-control" required/>
             </div>
-        </div>
+            <div class="form-group">
+                <label>Routing Number</label>
+                <input th:field="*{routingNumber}" type="text" pattern="\d+" title="Valid routing number" class="form-control" required />
+            </div>
+    
+            <button type="submit" class="btn btn-primary">Save</button>
+        </form>
 
-        <button type="submit" class="btn btn-primary">Save</button>
-    </form>
+        <form th:case="'buyer'" th:object="${buyer}" method="post" th:action="@{/members/buyers/register}" cssClass="form" >
+            <input type="hidden" th:field="*{memberID}"/>
+        
+            <div class="form-group">
+                <label>Shipping Address</label>
+                <input th:field="*{shippingAddress}" type="text" class="form-control" />
+            </div>
+        
+            <button type="submit" class="btn btn-primary">Save</button>
+        </form>
+
+        <form th:case="*" th:object="${member}" method="post" th:action="@{/members/register}" cssClass="form" >
+            <input type="hidden" th:field="*{memberID}"/>
+    
+            <div class="form-group">
+                <label>Email</label>
+                <input th:field="*{email}" type="email" class="form-control" required />
+            </div>
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" class="form-control" th:field="*{name}" required />
+            </div>
+              <div class="form-group">
+                <label>Password</label>
+                <input type="password" class="form-control" th:field="*{password}" required />
+            </div>
+            <div class="form-group">
+                <label>Phone Number</label>
+                <input type="text" class="form-control" th:field="*{phoneNumber}" />
+            </div>
+            <div class="form-group">
+                <label>Home Address</label>
+                <input type="text" class="form-control" th:field="*{homeAddress}" />
+            </div>
+    
+            <div class="form-group">
+                <label>Member Type</label>
+                <div style="display: flex; gap: 10px;">
+                    <label><input type="radio" name="memberType" value="buyer" th:field="*{memberType}" required/> Buyer</label>
+                    <label><input type="radio" name="memberType" value="seller" th:field="*{memberType}" required/> Seller</label>
+                    <label><input type="radio" name="memberType" value="admin" th:field="*{memberType}" required/> Admin</label>
+                </div>
+            </div>
+    
+            <button type="submit" class="btn btn-primary">Save</button>
+        </form>
+    </th:block>
+    
     <br>
 
     <footer>

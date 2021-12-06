@@ -52,6 +52,10 @@ public class MemberDao {
             member.getMemberType()
         );
 
-        return result > 0 ? member : null;
+        if(result > 0) {
+            return this.getMemberByEmail(member.getEmail());
+        }
+
+        return null;
     }
 }

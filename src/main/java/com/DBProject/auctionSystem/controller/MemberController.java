@@ -10,6 +10,7 @@ import com.DBProject.auctionSystem.service.MemberService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -34,16 +35,93 @@ public class MemberController {
         return model;
     }
 
+    @GetMapping(path = "/register")
+    public ModelAndView registerMember(){
+        Member member = new Member();
+        ModelAndView modelAndView = new ModelAndView();
+
+        modelAndView.addObject("member", member);
+        modelAndView.setViewName("add_member");
+
+        return modelAndView;
+    }
+
+    @PostMapping(path = "/register")
+    public ModelAndView registerMember(@ModelAttribute Member member){
+        ModelAndView model = new ModelAndView();
+        member = memberService.addMember(member);
+        String memberType = member != null ? member.getMemberType() : "";
+
+        model.addObject("memberType", memberType);
+
+        switch(memberType) {
+            case "buyer":
+                Buyer buyer = new Buyer();
+                
+                buyer.setMemberID(member.getMemberID());
+                model.addObject("buyer", buyer);
+
+                model.setViewName("add_member");
+
+                return model;
+            case "seller":
+                Seller seller = new Seller();
+                
+                seller.setMemberID(member.getMemberID());
+                model.addObject("seller", seller);
+
+                model.setViewName("add_member");
+
+                return model;
+            case "admin":
+                Admin admin = new Admin();
+
+                admin.setMemberID(member.getMemberID());
+                memberService.addAdmin(admin);
+                return new ModelAndView("redirect:/login");
+            default:
+                break;
+        }
+
+        model.addObject("error", true);
+        return model;
+    }
+    
+    @PostMapping(path = "/sellers/register")
+    public ModelAndView registerSeller(@ModelAttribute Seller seller){
+        ModelAndView model = new ModelAndView();
+        seller = memberService.addSeller(seller);
+
+        if(seller != null) 
+            return new ModelAndView("redirect:/login");
+
+        model.addObject("memberType", "seller");
+        model.addObject("seller", seller);
+        model.addObject("error", true);
+
+        return model;
+    }
+    @PostMapping(path = "/buyers/register")
+    public ModelAndView registerBuyer(@ModelAttribute Buyer buyer){
+        ModelAndView model = new ModelAndView();
+        buyer = memberService.addBuyer(buyer);
+
+        if(buyer != null) 
+            return new ModelAndView("redirect:/login");
+
+        model.addObject("memberType", "buyer");
+        model.addObject("buyer", buyer);
+        model.addObject("error", true);
+
+        return model;
+    }
+
+
     @GetMapping
     public List<Member> index() {
         return memberService.getMembers();
     }
-
-    @PostMapping(path = "/add")
-    public Member add(@RequestBody Member member) {
-        return memberService.addMember(member);
-    }
-
+    
     @GetMapping(path = "/{memberID}")
     public Member get(@PathVariable int memberID) {
         return memberService.getMember(memberID);
@@ -53,12 +131,17 @@ public class MemberController {
     public Member getMemberByEmail(@PathVariable String email) {
         return memberService.getMemberByEmail(email);
     }
-
+    
     @GetMapping(path = "/verify/{email}-{password}")
     public String verifyMember(@PathVariable String email, @PathVariable String password) {
         return memberService.verifyMember(email, password);
     }
 
+    @PostMapping(path = "/add")
+    public Member add(@RequestBody Member member) {
+        return memberService.addMember(member);
+    }
+    
     // admin
     @GetMapping(path = "/admins")
     public List<Admin> getAdmins(){

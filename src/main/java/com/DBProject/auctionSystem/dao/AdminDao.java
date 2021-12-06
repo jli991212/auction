@@ -11,6 +11,7 @@ import java.util.List;
 public class AdminDao {
     @Autowired
     JdbcTemplate jdbc;
+
     public List<Admin> getAdmins() {
         String sql = "SELECT * FROM admin";
         List<Admin> admin = null;
@@ -27,5 +28,16 @@ public class AdminDao {
         }
 
         return admin;
+    }
+
+    public Admin addAdmin(Admin admin) {
+        String sql = "INSERT INTO admin (`memberID`, `approved`) VALUES (?, 1)";
+
+        int result = jdbc.update(
+            sql,
+            admin.getMemberID()
+        );
+
+        return result == 1 ? admin : null;
     }
 }

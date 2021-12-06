@@ -31,39 +31,15 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
-        // httpSecurity.authorizeRequests()
-        //   .antMatchers("/auctions")
-        //   .hasAuthority("buyer")
-        //   .anyRequest()
-        //   .authenticated()
-        //   .and()
-        //   .formLogin();
-        
         // httpSecurity.csrf()
         //   .ignoringAntMatchers("/h2-console/**");
 
-        // httpSecurity.authorizeRequests()
-        //     .anyRequest()
-        //     .authenticated()
-        //     .and()
-        //     .formLogin()
-        //         .loginPage("/login")
-        //         .usernameParameter("email")
-        //         .permitAll()
-        //     .and()
-        //     .logout().permitAll();
-
-        // httpSecurity.authorizeRequests()
-        //     .antMatchers("/resources/**")
-        //         .permitAll()
-        //         .anyRequest()
-        //         .authenticated()
-        //     .and()
-        //     .formLogin().loginPage("/login")
-        //     .loginProcessingUrl("/authentication").permitAll();
-        
         httpSecurity.authorizeRequests()
-            .antMatchers("/", "/login", "/logout", "/webjars/**", "/auctions")
+            .antMatchers(
+                "/webjars/**", "/", "/login", "/logout", "/auctions",
+                "/members/register", "/members/sellers/register",
+                "/members/buyers/register"
+            )
                 .permitAll()
                 .anyRequest()
             .authenticated()

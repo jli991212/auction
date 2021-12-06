@@ -42,9 +42,16 @@ public class MemberService {
     }
 
     public Member addMember(Member member) {
-        member = memberDao.addMember(member);
-
-        return member;
+        return memberDao.addMember(member);
+    }
+    public Seller addSeller(Seller seller) {
+        return sellerDao.addSeller(seller);
+    }
+    public Buyer addBuyer(Buyer buyer) {
+        return buyerDao.addBuyer(buyer);
+    }
+    public Admin addAdmin(Admin admin) {
+        return adminDao.addAdmin(admin);
     }
 
     // admin
