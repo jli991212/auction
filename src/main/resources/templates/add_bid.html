@@ -4,42 +4,94 @@
     <th:block th:include="fragments/header :: head"> </th:block>
 </head>
 <body>
-<div class="container">
-    <br>
-    <nav>  <th:block th:replace="fragments/nav :: nav"></th:block>   </nav>
-    <br>
-    <h1>
-        WELCOME TO AUCTION BIDDING
-    </h1>
+    <div class="container">
+        <br>
+        <nav>  <th:block th:replace="fragments/nav :: nav"></th:block>   </nav>
+        <br>
+        <h1>
+            WELCOME TO AUCTION BIDDING
+        </h1>
 
-    <div class="alert alert-primary" role="alert">
-        A simple primary alert—check it out!
+        <div class="alert alert-danger" role="alert" th:if="${error}">
+            Error Bidding on Item
+        </div>
+    
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="justify-content-center mb-3">
+                        <div class="col-md-12 col-xl-10">
+                            <div class="card shadow-0 border rounded-3">
+                            <div class="card-body" style="background-color: #fbfbfb;">
+                                <div>
+                                <div class="w-100">
+                                    <div class="bg-image hover-zoom ripple rounded ripple-surface" style="position: relative;overflow: hidden;padding-bottom: 100%;">
+                                        <img
+                                            th:src="${item.item.image}"
+                                            alt="image"
+                                            th:alt="${item.item.itemName}"
+                                            class="w-100 h-100"
+                                            style="position:absolute; object-fit:contain"
+                                        />
+                                    </div>
+                                </div>
+                                <div>
+                                    <h5 th:text="${item.item.itemName}"></h5>
+                                    <div class="mask text-white">
+                                        <div class="d-flex justify-content-start align-items-end h-100">
+                                            <h5><span class="badge bg-info ms-2" th:text="${item.category}"></span></h5>
+                                        </div>
+                                    </div>
+                                    
+                                    <p class="mb-4 mb-md-0">
+                                        <span th:text="${item.item.description}"></span> 
+                                    </p>
+                                </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col" style="position: sticky;position: relative;">
+                    <div class="border-sm-start-none border-start" style="position: fixed;">
+                    <div class="d-flex flex-row align-items-center mb-1">
+                        <h4 class="mb-1 me-1" th:text="${#numbers.formatCurrency(item.currentBid)}"></h4>
+                    </div>
+                    <h6 class="text-secondary" th:text="${item.totalBids + ' Bids'}"></h6>
+                    <div class="mb-2 text-muted small">
+                        <span>Item Size <span class="text-primary"> • </span>
+                            <span th:text="${item.item.size}"></span><br />
+                        </span>
+                        <span>Auction Start <span class="text-primary"> • </span>
+                            <span th:text="${item.item.bidStartDate}"></span><br />
+                        </span>
+                        <span>Auction End <span class="text-primary"> • </span>
+                            <span th:text="${item.item.bidEndDate}"></span><br />
+                        </span>
+                    </div>
+                    <form th:object="${bid}"  method="post" th:action="@{/auctions/addbid}" cssClass="form" style="position: fixed;">
+                        <input type="hidden" th:field="*{itemID}"/>
+                        <input type="hidden" th:field="*{buyerID}"/>
+                
+                        <div class="form-group">
+                            <label>Bid Price</label>
+                            <input type="number" name="bidPrice" th:min="${item.currentBid}" step="0.01" th:value="${item.currentBid}" class="form-control" required />
+                        </div>
+                
+                        <button type="submit" class="btn btn-primary">Bid</button>
+                    </form>
+                </div>  
+                </div>
+            </div>
+        </div>
+    
+        <br>
+    
+        <footer>
+            <th:block th:include="fragments/footer :: footer"></th:block>
+        </footer>
     </div>
-    <form  th:object="${bidform}"  method="post" th:action="@{/auctions/addbid}" cssClass="form" >
-        <!-- <input type="hidden" th:field="*{itemID}"/> -->
-
-        <div class="form-group">
-            <label>itemID</label>
-            <input th:field="*{itemID}" type="number" min="0" class="form-control"  />
-        </div>
-
-        <div class="form-group">
-            <label>buyerID</label>
-            <input th:field="*{buyerID}" type="number" min="0" class="form-control"  />
-        </div>
-
-        <div class="form-group">
-            <label>bid price</label>
-            <input th:field="*{bidPrice}" type="text" class="form-control"  />
-        </div>
-
-        <button type="submit" class="btn btn-primary">Save</button>
-    </form>
-    <br>
-
-    <footer>
-        <th:block th:include="fragments/footer :: footer"></th:block>
-    </footer>
-</div>
+    
 </body>
 </html>

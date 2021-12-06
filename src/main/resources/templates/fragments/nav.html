@@ -20,9 +20,6 @@
             <li class="nav-item">
                 <a class="nav-link" th:href="@{/auctions/bids/all}">Newest Bids</a>
             </li>
-            <li class="nav-item" sec:authorize="hasAuthority('buyer')">
-                <a class="nav-link" th:href="@{/auctions/addbid}">Submit Bid</a>
-            </li>
         </ul>
 
         <ul class="navbar-nav">

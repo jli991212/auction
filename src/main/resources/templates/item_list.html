@@ -21,12 +21,14 @@
             <div class="card-body" style="background-color: #fbfbfb;">
                 <div class="row">
                 <div class="col-md-12 col-lg-3 col-xl-3 mb-4 mb-lg-0">
-                    <div class="bg-image hover-zoom ripple rounded ripple-surface">
+                    <div class="bg-image hover-zoom ripple rounded ripple-surface"
+                        style="position: relative;overflow: hidden;padding-bottom: 100%;">
                         <img
                             th:src="${item.image}"
                             alt="image"
                             th:alt="${item.itemName}"
                             class="w-100 h-100"
+                            style="position:absolute; object-fit:contain"
                         />
                     </div>
                 </div>
@@ -50,7 +52,7 @@
                     </div>
                     <p class="mb-4 mb-md-0">
                         <span
-                            th:text="${#strings.abbreviate(item.description + ' There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which do not look even slightly believable.', 110)}"
+                            th:text="${#strings.abbreviate(item.description, 110)}"
                         ></span> 
                     </p>
                 </div>
@@ -60,10 +62,12 @@
                     </div>
                     <h6 class="text-secondary" th:text="${item.totalBids + ' Bids'}"></h6>
                     <div class="d-flex flex-column mt-4">
-                    <button class="btn btn-primary btn-sm" type="button">Bid</button>
-                    <button class="btn btn-outline-primary btn-sm mt-2" type="button">
-                        Details
-                    </button>
+                        <a th:href="@{/auctions/bid/{itemID}(itemID=${item.itemID})}">
+                            <button sec:authorize="hasAuthority('buyer')" class="btn btn-primary btn-sm" type="button">Bid</button>
+                        </a>
+                        <a th:href="@{/auctions/addbid}">
+                            <button sec:authorize="hasAuthority('admin')" class="btn btn-primary btn-sm" type="button">Delete</button>
+                        </a>
                     </div>
                 </div>
                 </div>

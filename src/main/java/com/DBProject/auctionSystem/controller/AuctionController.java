@@ -11,11 +11,16 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 @RestController
 @RequestMapping(path = "/auctions")
 public class AuctionController {
     @Autowired
     AuctionService auctionService;
+
+    @Autowired 
+    HttpSession httpSession;
 
     @GetMapping
     public ModelAndView allAuctionItems() {
@@ -29,16 +34,25 @@ public class AuctionController {
     }
     
     // bids
-    @GetMapping("/addbid")
+    @GetMapping("/bid/{itemID}")
     @PreAuthorize("hasAuthority('buyer')")
-    public ModelAndView addbidForm() {
+    public ModelAndView addbidForm(@PathVariable int itemID) {
+        ModelAndView model = new ModelAndView();
         Bid bid = new Bid();
-        ModelAndView modelAndView = new ModelAndView();
 
-        modelAndView.addObject("bidform", bid);
-        modelAndView.setViewName("add_bid");
+        ItemDetailDto item = this.getItemByItemID(itemID);
 
-        return modelAndView;
+        if(item == null)
+            return new ModelAndView("redirect:/auctions");
+
+        bid.setItemID(itemID);
+        bid.setBuyerID((Integer) httpSession.getAttribute("memberID"));
+
+        model.addObject("item", item);
+        model.addObject("bid", bid);
+        model.setViewName("add_bid");
+
+        return model;
     }
 
     @PostMapping("/addbid")
@@ -95,7 +109,7 @@ public class AuctionController {
     }
 
     @GetMapping(path = "/items/{itemID}")
-    public Item getItemByItemID(@PathVariable int itemID){
+    public ItemDetailDto getItemByItemID(@PathVariable int itemID){
         return auctionService.getItemByItemID(itemID);
     }
 

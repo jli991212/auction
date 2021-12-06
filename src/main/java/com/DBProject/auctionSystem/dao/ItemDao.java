@@ -20,9 +20,9 @@ public class ItemDao {
         return new ResultMapper<ItemDetailDto>().queryForList(jdbc, sql);
     }
 
-    public Item getItemByItemID(int itemID) {
-        String sql = "SELECT * FROM item WHERE itemID=?";
-        return new ResultMapper<Item>().queryForObject(Item.class, jdbc, sql, itemID);
+    public ItemDetailDto getItemByItemID(int itemID) {
+        String sql = "SELECT * FROM item_detail WHERE itemID=?";
+        return new ResultMapper<ItemDetailDto>().queryForObject(ItemDetailDto.class, jdbc, sql, itemID);
     }
 
     public List<Item> getItemsBySellerID(int sellerID) {
