@@ -1,7 +1,5 @@
 package com.DBProject.auctionSystem.controller;
 
-import java.util.Optional;
-
 import com.DBProject.auctionSystem.model.Member;
 import com.DBProject.auctionSystem.service.MemberService;
 

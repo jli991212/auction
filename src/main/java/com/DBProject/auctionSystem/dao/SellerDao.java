@@ -1,6 +1,5 @@
 package com.DBProject.auctionSystem.dao;
 
-import com.DBProject.auctionSystem.model.Buyer;
 import com.DBProject.auctionSystem.model.Seller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
