@@ -58,4 +58,11 @@ public class MemberDao {
 
         return null;
     }
+
+    public boolean deleteMember(int memberID) {
+        String sql = "DELETE FROM member WHERE memberID = ?";
+        int result = jdbc.update(sql, memberID);
+
+        return result == 1;
+    }
 }

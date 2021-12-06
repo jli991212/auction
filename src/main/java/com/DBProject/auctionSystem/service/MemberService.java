@@ -54,6 +54,10 @@ public class MemberService {
         return adminDao.addAdmin(admin);
     }
 
+    public boolean deleteMember(int memberID) {
+        return memberDao.deleteMember(memberID);
+    }
+
     // admin
     public List<Admin> getAdmins(){
         return adminDao.getAdmins();

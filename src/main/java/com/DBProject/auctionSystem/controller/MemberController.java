@@ -9,6 +9,7 @@ import com.DBProject.auctionSystem.model.Seller;
 import com.DBProject.auctionSystem.service.MemberService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +25,7 @@ public class MemberController {
     @Autowired
     MemberService memberService;
 
+    @PreAuthorize("hasAuthority('admin')")
     @GetMapping(path="/all")
     public ModelAndView allmembers() {
         ModelAndView model = new ModelAndView();
@@ -116,6 +118,12 @@ public class MemberController {
         return model;
     }
 
+    @PreAuthorize("hasAuthority('admin')")
+    @PostMapping(path = "/delete/{memberID}")
+    public ModelAndView deleteMember(@PathVariable int memberID) {
+        memberService.deleteMember(memberID);
+        return new ModelAndView("redirect:/members/all");
+    }
 
     @GetMapping
     public List<Member> index() {

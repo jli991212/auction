@@ -11,15 +11,28 @@
 
     <h1>ALL MEMBERS LIST</h1>
     <br>
+
+    <div class="alert alert-danger" role="alert" th:if="${error}">
+        Error performing action on member
+    </div>
+
     <table class="table table-striped">
         <thead>
             <th scope="row"> Member Name</th>
+            <th scope="row"> Member Email</th>
             <th scope="row"> Member Type</th>
+            <th scope="row"> Action</th>
         </thead>
         <tbody>
             <tr th:each="member : ${memberlists}">
                 <td th:text="${member.name}"></td> 
+                <td th:text="${member.email}"></td> 
                 <td th:text="${member.memberType}"></td> 
+                <td>
+                    <form method="post" th:action="@{/members/delete/{memberID}(memberID=${member.memberID})}" cssClass="form">
+                        <button type="submit" class="btn btn-sm btn-primary">Delete</button>
+                    </form>
+                </td> 
             </tr>
         </tbody>
     </table>
