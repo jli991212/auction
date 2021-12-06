@@ -17,10 +17,4 @@ public class Member {
     private String phoneNumber;
     private String homeAddress;
     private String memberType;
-
-    public Member(String email, String password, String memberType) {
-        this.email = email;
-        this.password = password;
-        this.memberType = memberType;
-    }
 }

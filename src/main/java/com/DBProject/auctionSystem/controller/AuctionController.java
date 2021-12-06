@@ -5,6 +5,7 @@ import com.DBProject.auctionSystem.model.Bid;
 import com.DBProject.auctionSystem.model.Item;
 import com.DBProject.auctionSystem.service.AuctionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -23,12 +24,13 @@ public class AuctionController {
         
         model.addObject("itemlists", itemlist);
         model.setViewName("item_list");
-
+        
         return model;
     }
-
+    
     // bids
     @GetMapping("/addbid")
+    @PreAuthorize("hasAuthority('buyer')")
     public ModelAndView addbidForm() {
         Bid bid = new Bid();
         ModelAndView modelAndView = new ModelAndView();

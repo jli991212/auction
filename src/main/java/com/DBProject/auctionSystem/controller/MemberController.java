@@ -35,23 +35,6 @@ public class MemberController {
         return model;
     }
 
-    @GetMapping(path = "/register")
-    public ModelAndView registerMember(){
-        Member member = new Member();
-        ModelAndView modelAndView = new ModelAndView();
-
-        modelAndView.addObject("member", member);
-        modelAndView.setViewName("add_member");
-
-        return modelAndView;
-    }
-
-    @PostMapping(path = "/register")
-    public ModelAndView registerMember(@ModelAttribute Member member){
-        this.add(member);
-        return new ModelAndView("redirect:/members/all");
-    }
-
     @GetMapping
     public List<Member> index() {
         return memberService.getMembers();
@@ -68,18 +51,13 @@ public class MemberController {
     }
 
     @GetMapping(path = "/email/{email}")
-    public List<Member> getMemberByEmail(@PathVariable String email) {
+    public Member getMemberByEmail(@PathVariable String email) {
         return memberService.getMemberByEmail(email);
     }
 
     @GetMapping(path = "/verify/{email}-{password}")
     public String verifyMember(@PathVariable String email, @PathVariable String password) {
         return memberService.verifyMember(email, password);
-    }
-
-    @GetMapping(path = "/info")
-    public List<String> getInfo() {// could do @PathVariable
-        return memberService.getMemberInfo();
     }
 
     // admin

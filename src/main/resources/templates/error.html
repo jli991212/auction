@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <th:block th:include="fragments/header :: head"> </th:block>
+        <title th:text="'Error'"></title>
+    </head>
+    <body th:with="httpStatus=${T(org.springframework.http.HttpStatus).valueOf(#response.status)}">
+        <div class="container">
+            <br>
+            <nav>  <th:block th:replace="fragments/nav :: nav"></th:block>   </nav>
+            <br>
+    
+            <h1>THERE WAS AN ERROR</h1>
+            <h2 th:utext="${error}">Error java.lang.NullPointerException</h2>
+            <br/>
+            <h4>Go to <a th:href="@{/}">Home Page</a></h4>
+        
+            <footer>
+                <th:block th:include="fragments/footer :: footer"></th:block>
+            </footer>
+        </div>
+    </body>
+</html>

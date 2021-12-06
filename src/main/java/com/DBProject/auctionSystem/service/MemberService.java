@@ -33,7 +33,7 @@ public class MemberService {
         return memberDao.getMember(memberID);
     }
 
-    public List<Member> getMemberByEmail(String email) {
+    public Member getMemberByEmail(String email) {
         return memberDao.getMemberByEmail(email);
     }
 
@@ -42,27 +42,9 @@ public class MemberService {
     }
 
     public Member addMember(Member member) {
-        String memberType = member.getMemberType();
-
         member = memberDao.addMember(member);
 
-        switch(memberType) {
-            case "admin":
-                break;
-            case "buyer":
-                break;
-            case "seller":
-                break;
-            default:
-                break;
-        }
-
         return member;
-    }
-
-    public List<String> getMemberInfo() {
-        String query1 = "select * from member";
-        return memberDao.getQuery(query1);
     }
 
     // admin

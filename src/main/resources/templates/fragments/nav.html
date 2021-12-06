@@ -1,6 +1,6 @@
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light" xmlns:th="http://www.thymeleaf.org">
-    <a class="navbar-brand" th:href="@{/}">online auction</a>
+    <a class="navbar-brand" th:href="@{/}">Online Auction</a>
     
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -9,25 +9,33 @@
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav  mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" th:href="@{/}">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link" th:href="@{/}">Home</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" sec:authorize="hasAuthority('admin')">
                 <a class="nav-link" th:href="@{/members/all}">Member List</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/auctions}">Item List</a>
+                <a class="nav-link" th:href="@{/auctions}">Listed Items</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/auctions/bids/all}">Bid List</a>
+                <a class="nav-link" th:href="@{/auctions/bids/all}">Newest Bids</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" sec:authorize="hasAuthority('buyer')">
                 <a class="nav-link" th:href="@{/auctions/addbid}">Submit Bid</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/members/register}">Sign Up</a>
+        </ul>
+
+        <ul class="navbar-nav">
+            <li class="nav-item" sec:authorize="!isAuthenticated()">
+                <a class="nav-link" th:href="@{/register}">Sign Up</a>
+            </li>
+            <li class="nav-item" sec:authorize="!isAuthenticated()">
+                <a class="nav-link" th:href="@{/login}">Log In</a>
+            </li>
+            <li class="nav-item" sec:authorize="isAuthenticated()">
+                <a class="nav-link" th:href="@{/logout}">Log Out</a>
             </li>
         </ul>
-       
     </div>
 </nav>
 
