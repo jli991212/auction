@@ -47,6 +47,7 @@ public class AuctionController {
         Bid bid = new Bid();
 
         ItemDetailDto item = this.getItemByItemID(itemID);
+        List<Bid> bidList = this.getItemBids(itemID);
 
         if(item == null)
             return new ModelAndView("redirect:/auctions");
@@ -55,6 +56,7 @@ public class AuctionController {
         bid.setBuyerID((Integer) httpSession.getAttribute("memberID"));
 
         model.addObject("item", item);
+        model.addObject("bidList", bidList);
         model.addObject("bid", bid);
         model.setViewName("add_bid");
 
@@ -128,7 +130,7 @@ public class AuctionController {
     }
 
     @GetMapping(path = "/bids/item/{itemID}")
-    public List<Bid> getItem(@PathVariable int itemID) {
+    public List<Bid> getItemBids(@PathVariable int itemID) {
         return auctionService.getBidsByItemID(itemID);
     }
 

@@ -17,7 +17,7 @@
         </div>
     
         <div class="container">
-            <div class="row">
+            <div class="row mb-5">
                 <div class="col">
                     <div class="justify-content-center mb-3">
                         <div class="col-md-12 col-xl-10">
@@ -83,6 +83,23 @@
                     </form>
                 </div>  
                 </div>
+            </div>
+
+            <div class="row">
+                <h3>CURRENT BIDS</h3>
+    <br>
+          <table class="table table-striped">
+        <thead>
+        <th scope="row">Buyer</th>
+        <th scope="row">Bid Price</th>
+        </thead>
+        <tbody>
+            <tr th:each="bid : ${bidLists}">
+                <td th:text="${bid.buyerID}"></td>
+                <td th:text="${bid.bidPrice}"></td>
+            </tr>
+        </tbody>
+    </table>
             </div>
         </div>
     
