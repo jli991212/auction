@@ -136,7 +136,6 @@ FROM (item NATURAL JOIN (
     COUNT(bid.itemID) count
     FROM item LEFT OUTER JOIN bid
     ON item.itemID = bid.itemID
-    WHERE NOW() < item.bidEndDate
     GROUP BY item.itemID
 ) as bid NATURAL JOIN category)
 JOIN member ON item.sellerID = member.memberID;

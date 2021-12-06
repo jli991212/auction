@@ -23,6 +23,9 @@
             <li class="nav-item" sec:authorize="hasAuthority('seller')">
                 <a class="nav-link" th:href="@{/auctions/add}">Create Auction</a>
             </li>
+            <li class="nav-item" sec:authorize="hasAuthority('seller') OR hasAuthority('buyer')">
+                <a class="nav-link" th:href="@{/feedback/{memberID}/all(memberID=${session.memberID})}">Show Feedback</a>
+            </li>
         </ul>
 
         <ul class="navbar-nav">

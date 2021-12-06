@@ -17,7 +17,7 @@ public class ItemDao {
     JdbcTemplate jdbc;
 
     public List<ItemDetailDto> getAllItems(){
-        String sql = "SELECT * FROM item_detail";
+        String sql = "SELECT * FROM item_detail WHERE NOW() < bidEndDate";
         return new ResultMapper<ItemDetailDto>().queryForList(jdbc, sql);
     }
 
