@@ -64,7 +64,7 @@ CREATE TABLE item (
     PRIMARY KEY ( itemID, sellerID ),
     FOREIGN KEY( sellerID ) REFERENCES seller(memberID)
     ON UPDATE CASCADE
-    ON DELETE RESTRICT
+    ON DELETE CASCADE
 );
 
 -- BID
@@ -77,10 +77,10 @@ CREATE TABLE bid (
     PRIMARY KEY( itemID, buyerID, bidPrice ),
     FOREIGN KEY( itemID ) REFERENCES item(itemID)
     ON UPDATE CASCADE
-    ON DELETE RESTRICT,
+    ON DELETE CASCADE,
     FOREIGN KEY( buyerID ) REFERENCES buyer(memberID)
     ON UPDATE CASCADE
-    ON DELETE RESTRICT
+    ON DELETE CASCADE
 );
 
 -- FEEDBACK
@@ -93,13 +93,13 @@ CREATE TABLE feedback (
     PRIMARY KEY ( senderID, receiverID, itemID ),
     FOREIGN KEY( senderID ) REFERENCES member(memberID)
     ON UPDATE CASCADE
-    ON DELETE RESTRICT,
+    ON DELETE CASCADE,
     FOREIGN KEY( receiverID ) REFERENCES member(memberID)
     ON UPDATE CASCADE
-    ON DELETE RESTRICT,
+    ON DELETE CASCADE,
     FOREIGN KEY( itemID ) REFERENCES item(itemid)
     ON UPDATE CASCADE
-    ON DELETE RESTRICT
+    ON DELETE CASCADE
 );
 ------------------------ END TABLES ------------------------
 
@@ -122,6 +122,7 @@ CREATE OR REPLACE VIEW top_categories AS
 SELECT category.name AS category, COUNT(item.itemID) AS totalItems
 FROM category LEFT OUTER JOIN item
 ON category.categoryID = item.categoryID 
+WHERE NOW() < item.bidEndDate
 GROUP BY(category.categoryID)
 ORDER BY COUNT(item.itemID) DESC
 LIMIT 10;
@@ -135,6 +136,7 @@ FROM (item NATURAL JOIN (
     COUNT(bid.itemID) count
     FROM item LEFT OUTER JOIN bid
     ON item.itemID = bid.itemID
+    WHERE NOW() < item.bidEndDate
     GROUP BY item.itemID
 ) as bid NATURAL JOIN category)
 JOIN member ON item.sellerID = member.memberID;

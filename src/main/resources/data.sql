@@ -23,7 +23,7 @@ INSERT INTO admin(`memberID`, `approved`)
 VALUES (LAST_INSERT_ID(), TRUE);
 
 -- CREATE CATEGORY
-INSERT INTO category(`name`) VALUES ('shirts');
+INSERT INTO category(`name`) VALUES ('shirts'), ('t-shirts'), ('blouses'), ("pants");
 
 -- CREATE ITEM
 -- Insert into item(
