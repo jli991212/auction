@@ -13,7 +13,7 @@
     </h1>
 
     <div class="alert alert-alert" role="alert" th:if="${param.error}">
-        Error Signing In
+        Error Signing Up
     </div>
 
     <form th:object="${member}" method="post" th:action="@{/members/register}" cssClass="form" >
@@ -21,15 +21,15 @@
 
         <div class="form-group">
             <label>Email</label>
-            <input th:field="*{email}" type="email" class="form-control"  />
+            <input th:field="*{email}" type="email" class="form-control" required />
         </div>
         <div class="form-group">
             <label>Name</label>
-            <input type="text" class="form-control" th:field="*{name}" />
+            <input type="text" class="form-control" th:field="*{name}" required />
         </div>
           <div class="form-group">
             <label>Password</label>
-            <input type="password" class="form-control" th:field="*{password}" />
+            <input type="password" class="form-control" th:field="*{password}" required />
         </div>
         <div class="form-group">
             <label>Phone Number</label>
@@ -43,9 +43,9 @@
         <div class="form-group">
             <label>Member Type</label>
             <div style="display: flex; gap: 10px;">
-                <label><input type="radio" name="memberType" value="admin" th:field="*{memberType}"/> Admin</label>
-                <label><input type="radio" name="memberType" value="seller" th:field="*{memberType}"/> Seller</label>
-                <label><input type="radio" name="memberType" value="buyer" th:field="*{memberType}"/> Buyer</label>
+                <label><input type="radio" name="memberType" value="buyer" th:field="*{memberType}" required checked/> Buyer</label>
+                <label><input type="radio" name="memberType" value="seller" th:field="*{memberType}" required/> Seller</label>
+                <label><input type="radio" name="memberType" value="admin" th:field="*{memberType}" required/> Admin</label>
             </div>
         </div>
 

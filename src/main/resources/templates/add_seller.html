@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <th:block th:include="fragments/header :: head"> </th:block>
+</head>
+<body>
+<div class="container">
+    <br>
+    <nav>  <th:block th:replace="fragments/nav :: nav"></th:block>   </nav>
+    <br>
+    <h1>
+        WELCOME TO ADD SELLER FORM
+    </h1>
+
+    <div class="alert alert-alert" role="alert" th:if="${param.error}">
+        Error Signing Up
+    </div>
+
+    <form th:object="${seller}" method="post" th:action="@{/members/register}" cssClass="form" >
+        <input type="hidden" th:field="*{memberID}"/>
+
+        <div class="form-group">
+            <label>Bank Account</label>
+            <input th:field="*{bankAccount}" type="text" pattern="\d+" title="Valid bank account number" class="form-control" required/>
+        </div>
+        <div class="form-group">
+            <label>Routing Number</label>
+            <input th:field="*{routingNumber}" type="text" pattern="\d+" title="Valid routing number" class="form-control" required />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+    <br>
+
+    <footer>
+        <th:block th:include="fragments/footer :: footer"></th:block>
+    </footer>
+</div>
+</body>
+</html>
