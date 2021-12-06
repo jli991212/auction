@@ -84,8 +84,10 @@ public class ItemDao {
         }
     }
 
-    public void deleteItem(Item item) {
-        //
-    }
+    public boolean deleteItem(int itemID) {
+        String sql = "DELETE FROM item WHERE itemID = ?";
+        int result = jdbc.update(sql, itemID);
 
+        return result == 1;
+    }
 }

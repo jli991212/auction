@@ -66,4 +66,8 @@ public class AuctionService {
     public void updateItem(Item item, int itemID, int sellerID){
         itemDao.updateItem(item, itemID, sellerID);
     }
+
+    public boolean deleteItem(int itemID){
+        return itemDao.deleteItem(itemID);
+    }
 }

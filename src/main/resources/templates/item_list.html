@@ -65,9 +65,9 @@
                         <a th:href="@{/auctions/bid/{itemID}(itemID=${item.itemID})}">
                             <button sec:authorize="hasAuthority('buyer')" class="btn btn-primary btn-sm" type="button">Bid</button>
                         </a>
-                        <a th:href="@{/auctions/addbid}">
-                            <button sec:authorize="hasAuthority('admin')" class="btn btn-primary btn-sm" type="button">Delete</button>
-                        </a>
+                        <form sec:authorize="hasAuthority('admin')" method="post" th:action="@{/auctions/delete/{itemID}(itemID=${item.itemID})}" cssClass="form">
+                            <button sec:authorize="hasAuthority('admin')" class="btn btn-primary btn-sm" type="submit">Delete</button>
+                        </form>
                     </div>
                 </div>
                 </div>

@@ -103,6 +103,13 @@ public class AuctionController {
     }
 
     // items
+    @PreAuthorize("hasAuthority('admin')")
+    @PostMapping(path = "/delete/{itemID}")
+    public ModelAndView deleteItem(@PathVariable int itemID) {
+        auctionService.deleteItem(itemID);
+        return new ModelAndView("redirect:/auctions");
+    }
+    
     @GetMapping(path = "/items")
     public List<ItemDetailDto> getAllItems() {
         return auctionService.getAllItems();
