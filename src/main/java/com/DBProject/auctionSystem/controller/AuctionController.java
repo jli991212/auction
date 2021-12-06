@@ -54,6 +54,17 @@ public class AuctionController {
 
         return model;
     }
+    
+    @GetMapping(path = "/bids/all")
+    public ModelAndView allBids() {
+        ModelAndView model = new ModelAndView();
+        List<Bid> bidlist = this.getAllBids();
+        
+        model.addObject("bidLists", bidlist);
+        model.setViewName("bid_list");
+        
+        return model;
+    }
 
     @PostMapping("/addbid")
     public ModelAndView greetingSubmit(@ModelAttribute Bid bid) {
@@ -61,16 +72,21 @@ public class AuctionController {
         return new ModelAndView("redirect:/auctions/bids/all");
     }
 
-    @GetMapping(path = "/bids/all")
-    public ModelAndView allBids() {
-        ModelAndView model = new ModelAndView();
-        List<Bid> bidlist = this.getAllBids();
+    @PreAuthorize("hasAuthority('admin')")
+    @PostMapping("/bids/delete/{itemID}-{buyerID}-{bidPrice}")
+    public ModelAndView deleteBidSubmit(@PathVariable int itemID, @PathVariable int buyerID, @PathVariable double bidPrice) {
+        Bid bid = new Bid();
 
-        model.addObject("bidLists", bidlist);
-        model.setViewName("bid_list");
+        bid.setItemID(itemID);
+        bid.setBuyerID(buyerID);
+        bid.setBidPrice(bidPrice);
 
-        return model;
+        System.out.println(bid);
+
+        this.deleteBid(bid);
+        return new ModelAndView("redirect:/auctions/bids/all");
     }
+
 
     @GetMapping(path = "/bids")
     public List<Bid> getAllBids() {
@@ -97,9 +113,9 @@ public class AuctionController {
         return auctionService.setWinningBid(itemID, buyerID);
     }
 
-    @DeleteMapping(path = "/bids/delete/{itemID}-{buyerID}")
-    public boolean deleteBid(@PathVariable int itemID, @PathVariable int buyerID) {
-        return auctionService.deleteBid(itemID, buyerID);
+    @DeleteMapping(path = "/bids/delete")
+    public boolean deleteBid(@PathVariable Bid bid) {
+        return auctionService.deleteBid(bid);
     }
 
     // items

@@ -48,14 +48,14 @@ public class BidDao {
         return result > 0 ? bid : null;
     }
 
-    //TODO: NEEDS FIXING - If buyer bids multiple times on an item, all their bids get deleted
-    public boolean deleteBid(int itemID, int buyerID) {
-        String sql = "DELETE FROM bid WHERE itemID = ? AND buyerID = ?";
+    public boolean deleteBid(Bid bid) {
+        String sql = "DELETE FROM bid WHERE itemID = ? AND buyerID = ? AND bidPrice = ?";
 
         int result = jdbc.update(
             sql,
-            itemID,
-            buyerID
+            bid.getItemID(),
+            bid.getBuyerID(),
+            bid.getBidPrice()
         );
 
         return result == 1;

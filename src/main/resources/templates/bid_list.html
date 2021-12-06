@@ -15,34 +15,20 @@
         <thead>
         <th scope="row">Item</th>
         <th scope="row">Bid Price</th>
+        <th sec:authorize="hasAuthority('admin')" scope="row">Action</th>
         </thead>
         <tbody>
             <tr th:each="bid : ${bidLists}">
                 <td th:text="${bid.itemID}"></td>
                 <td th:text="${bid.bidPrice}"></td>
+                <td sec:authorize="hasAuthority('admin')">
+                    <form method="post" th:action="@{/auctions/bids/delete/{1}-{2}-{3}(1=${bid.itemID}, 2=${bid.buyerID}, 3=${bid.bidPrice})}" cssClass="form">
+                        <button type="submit" class="btn btn-sm btn-primary">Delete</button>
+                    </form>
+                </td> 
             </tr>
         </tbody>
     </table>
-
-    <nav aria-label="...">
-        <br>
-        <ul class="pagination justify-content-center">
-            <li class="page-item disabled">
-                <span class="page-link">Previous</span>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item active" aria-current="page">
-            <span class="page-link">
-                2
-                <span class="sr-only">(current)</span>
-            </span>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-                <a class="page-link" href="#">Next</a>
-            </li>
-        </ul>
-    </nav>
 
     <footer>
         <th:block th:include="fragments/footer :: footer"></th:block>
