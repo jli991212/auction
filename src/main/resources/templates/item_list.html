@@ -33,6 +33,7 @@
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-6 col-xl-6">
+                    [[${item.sellerID == session.memberID}]]
                     <h5 th:text="${item.itemName}"></h5>
                     <div class="mask text-white">
                         <div class="d-flex justify-content-start align-items-end h-100">
@@ -65,8 +66,11 @@
                         <a th:href="@{/auctions/bid/{itemID}(itemID=${item.itemID})}">
                             <button sec:authorize="hasAuthority('buyer')" class="btn btn-primary btn-sm" type="button">Bid</button>
                         </a>
-                        <form sec:authorize="hasAuthority('admin')" method="post" th:action="@{/auctions/delete/{itemID}(itemID=${item.itemID})}" cssClass="form">
-                            <button sec:authorize="hasAuthority('admin')" class="btn btn-primary btn-sm" type="submit">Delete</button>
+                        <form
+                            method="post"
+                            th:if="${item.sellerID == session.memberID || #authorization.expression(&quot;hasAuthority('admin')&quot;)}"
+                            th:action="@{/auctions/delete/{itemID}(itemID=${item.itemID})}" cssClass="form">
+                            <button class="btn btn-primary btn-sm" type="submit">Delete</button>
                         </form>
                     </div>
                 </div>

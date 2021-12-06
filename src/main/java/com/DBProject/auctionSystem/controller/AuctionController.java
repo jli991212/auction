@@ -148,7 +148,7 @@ public class AuctionController {
     }
 
     // items
-    @PreAuthorize("hasAuthority('admin')")
+    @PreAuthorize("hasAuthority('admin') OR hasAuthority('seller')")
     @PostMapping(path = "/delete/{itemID}")
     public ModelAndView deleteItem(@PathVariable int itemID) {
         auctionService.deleteItem(itemID);
