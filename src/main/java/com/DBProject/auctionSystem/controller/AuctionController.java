@@ -2,8 +2,11 @@ package com.DBProject.auctionSystem.controller;
 
 import com.DBProject.auctionSystem.dto.ItemDetailDto;
 import com.DBProject.auctionSystem.model.Bid;
+import com.DBProject.auctionSystem.model.Category;
 import com.DBProject.auctionSystem.model.Item;
 import com.DBProject.auctionSystem.service.AuctionService;
+import com.DBProject.auctionSystem.service.CategoryService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +21,9 @@ import javax.servlet.http.HttpSession;
 public class AuctionController {
     @Autowired
     AuctionService auctionService;
+
+    @Autowired
+    CategoryService categoryService;
 
     @Autowired 
     HttpSession httpSession;
@@ -85,6 +91,29 @@ public class AuctionController {
 
         this.deleteBid(bid);
         return new ModelAndView("redirect:/auctions/bids/all");
+    }
+
+    @PreAuthorize("hasAuthority('seller')")
+    @GetMapping("/add")
+    public ModelAndView addAuctionItem() {
+        ModelAndView model = new ModelAndView();
+        Item item = new Item();
+        List<Category> categoryList = categoryService.getAllCategories();
+
+        item.setSellerID((Integer) httpSession.getAttribute("memberID"));
+        
+        model.addObject("categoryList", categoryList);
+        model.addObject("item", item);
+        model.setViewName("add_item");
+        
+        return model;
+    }
+
+    @PreAuthorize("hasAuthority('seller')")
+    @PostMapping("/add")
+    public ModelAndView addAuctionItem(@ModelAttribute Item item) {
+        this.addItem(item);
+        return new ModelAndView("redirect:/auctions");
     }
 
 

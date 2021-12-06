@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <th:block th:include="fragments/header :: head"> </th:block>
+</head>
+<body>
+<div class="container">
+    <br>
+    <nav>  <th:block th:replace="fragments/nav :: nav"></th:block>   </nav>
+    <br>
+    <h1>WELCOME TO ADD ITEM FORM</h1>
+
+    <div class="alert alert-danger" role="alert" th:if="${error}">
+        Error Adding Item
+    </div>
+
+    <form th:object="${item}" method="post" th:action="@{/auctions/add}" cssClass="form" >
+        <input type="hidden" th:field="*{itemID}"/>
+        <input type="hidden" th:field="*{sellerID}"/>
+
+        <div class="form-group">
+            <label>Item Name</label>
+            <input th:field="*{itemName}" type="text" class="form-control" required/>
+        </div>
+        <div class="form-group">
+            <label>Description</label>
+            <input th:field="*{description}" type="text" class="form-control" required/>
+        </div>
+        <div class="form-group">
+            <label>Image</label>
+            <input th:field="*{image}" type="text" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <label>Starting Bid</label>
+            <input th:field="*{startingBid}" type="text" class="form-control" required/>
+        </div>
+        <div class="form-group">
+            <label>Bid Start Date</label>
+            <input th:field="*{bidStartDate}" type="datetime-local" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Bid End Date</label>
+            <input th:field="*{bidEndDate}" type="datetime-local" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label>Category</label>
+            <select class="custom-select" th:field="*{categoryID}" required>
+                <option th:each="category : ${categoryList}" th:value="${category.categoryID}" selected>
+                    [[${category.name}]]
+                </option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Size</label>
+            <input th:field="*{size}" type="text" class="form-control" required/>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+    
+    <br>
+
+    <footer>
+        <th:block th:include="fragments/footer :: footer"></th:block>
+    </footer>
+</div>
+</body>
+</html>

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Component
@@ -40,7 +41,8 @@ public class ItemDao {
     }
 
     public Item addItem(Item item) {
-        String sql = "INSERT INTO item (`itemID`, `sellerID`, `itemName`, `description`, `startingBid`, `bidStartDate`, `bidEndDate`, `categoryID`, `size`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO item (`itemID`, `sellerID`, `itemName`, `description`, `image`, `startingBid`, `bidStartDate`, `bidEndDate`, `categoryID`, `size`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        LocalDateTime bidStartDate = item.getBidStartDate() != null ? item.getBidStartDate() : LocalDateTime.now();
 
         int result = jdbc.update(
                 sql,
@@ -48,8 +50,9 @@ public class ItemDao {
                 item.getSellerID(),
                 item.getItemName(),
                 item.getDescription(),
+                item.getImage(),
                 item.getStartingBid(),
-                item.getBidStartDate(),
+                bidStartDate,
                 item.getBidEndDate(),
                 item.getCategoryID(),
                 item.getSize()
